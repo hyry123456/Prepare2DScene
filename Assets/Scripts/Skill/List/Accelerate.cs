@@ -9,20 +9,20 @@ namespace Skill
         {
             expendSP = 0;
             nowCoolTime = 0;
-            coolTime = 5;
+            coolTime = 3;
             skillName = "加速";
             skillType = SkillType.Dodge;
         }
 
         const float sustainTime = 1;
         float nowTime = 0, minForece = 10, maxForece = 5;
-        Rigidbody rb;
+        Rigidbody2D rb;
         Camera camera;
         /// <summary>    /// 释放加速技能    /// </summary>
         public override void OnSkillRelease(SkillManage mana)
         {
             if (rb == null)
-                rb = mana.GetComponent<Rigidbody>();
+                rb = mana.GetComponent<Rigidbody2D>();
             camera = Camera.main;
             if (camera == null || rb == null) return;
             nowTime = 0;
@@ -38,8 +38,7 @@ namespace Skill
             {
                 float radio = 1.0f - Mathf.Abs(nowTime / sustainTime - 0.5f) / 0.5f;
                 float trueForece = Mathf.Lerp(minForece, maxForece, radio);
-                rb.AddForce(camera.transform.forward * trueForece, ForceMode.Force);
-                camera.fieldOfView = Mathf.Lerp(60, 75, radio);
+                rb.AddForce(rb.transform.right * trueForece);
                 return false;
             }
             return true;

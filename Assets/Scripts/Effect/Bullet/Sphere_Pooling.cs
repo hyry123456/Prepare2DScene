@@ -1,7 +1,5 @@
 using Common;
 using DefferedRender;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -13,8 +11,8 @@ public class Sphere_Pooling : ObjectPoolBase
     protected override void OnEnable()
     {
     }
-    public delegate void CollsionEnter(Collision collision);
-    public CollsionEnter collsionEnter;
+    public delegate void Collision2DEnter(Collision2D collision);
+    public Collision2DEnter collsionEnter;
     ParticleDrawData drawData;
 
     public override void InitializeObject(Vector3 positon, Quaternion quaternion)
@@ -72,20 +70,23 @@ public class Sphere_Pooling : ObjectPoolBase
     }
 
     /// <summary> /// 球体的移动由外界控制，球体本身只是一个碰撞器 /// </summary>
-    private void Update()
+    private void FixedUpdate()
     {
         drawData.beginPos = transform.position;
         ParticleNoiseFactory.Instance.DrawPos(drawData);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collsionEnter != null)
             collsionEnter(collision);
 
+        Debug.Log(collision.gameObject.name);
+
+        if (collision.contacts.Length == 0) return;
         drawData.groupCount = 30;
         drawData.beginPos = collision.contacts[0].point;
-        drawData.speedMode = SpeedMode.VerticalVelocityOutside;
+        drawData.speedMode = SpeedMode.JustBeginSpeed;
         drawData.beginSpeed = collision.contacts[0].normal * 5;
         drawData.lifeTime = 5; drawData.showTime = 5f;
 
@@ -96,4 +97,5 @@ public class Sphere_Pooling : ObjectPoolBase
         CloseObject();
 
     }
+
 }

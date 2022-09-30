@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2119917823218758423}
   - component: {fileID: -8905908980664675058}
   - component: {fileID: 1463871631880423446}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Sphere_Pooling
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -133,4 +133,4 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 7

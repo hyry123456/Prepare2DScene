@@ -19,8 +19,6 @@ namespace Skill
 
         public override void OnSkillRelease(SkillManage mana)
         {
-            Camera camera = Camera.main;
-            if (camera == null) return;
             Bullet_Pooling bullet_Pooling =
                 (Bullet_Pooling)Common.SceneObjectPool.Instance.GetObject("Pooling_Bullet",
                 originBullet, mana.transform.position + mana.transform.right * 0.2f,

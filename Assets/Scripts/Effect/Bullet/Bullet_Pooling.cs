@@ -103,6 +103,12 @@ public class Bullet_Pooling : ObjectPoolBase
             character.modifyHp(-5);
         }
 
+        if (collision.contacts.Length == 0)
+        {
+            CloseObject();
+            return;
+        }
+
         drawData.groupCount = 30;
         drawData.beginPos = collision.contacts[0].point;
         drawData.speedMode = SpeedMode.VerticalVelocityOutside;

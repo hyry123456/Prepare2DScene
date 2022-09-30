@@ -75,7 +75,7 @@ Shader "Unlit/HookRope"
                 }
                 else{
                     worldPos = _TargetPos + offset;
-                    y = distance(_BeginPos, _TargetPos);
+                    y = distance(_BeginPos, _TargetPos) * _YScale;
                 }
                 output.pos = TransformWorldToHClip(worldPos);
                 output.uv = float2(input.baseUV.x, y);

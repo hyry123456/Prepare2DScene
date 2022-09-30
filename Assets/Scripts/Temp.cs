@@ -4,19 +4,14 @@ using UnityEngine;
 
 public class Temp : MonoBehaviour
 {
-    [SerializeField]
-    Material mat;
-    [SerializeField]
-    Texture2D texture;
+    public GameObject origin;
+
     void Start()
     {
-        mat.SetVector("_TargetPos", Vector3.one * 5);
-        mat.SetVector("_BeginPos", Vector3.zero);
-        mat.SetTexture("_MainTex", texture);
-        //mat.color
+        Control.EnemyControl enemyControl = (Control.EnemyControl)Common.SceneObjectPool.Instance.
+            GetObject("Enemy", origin, new Vector3(12, -4, 0), Quaternion.identity);
     }
     private void Update()
     {
-        Debug.DrawLine(Vector3.zero, Vector3.one * 5);
     }
 }
