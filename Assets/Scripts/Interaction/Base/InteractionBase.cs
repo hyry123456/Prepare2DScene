@@ -29,5 +29,16 @@ namespace Interaction
         /// <summary>        /// 该交互行为需要干的事情        /// </summary>
         public abstract void InteractionBehavior();
 
+
+        protected virtual void OnTriggerEnter2D(Collider2D collision)
+        {
+            InteractionControl.Instance.AddInteraction(this);
+        }
+
+        protected virtual void OnTriggerExit2D(Collider2D collision)
+        {
+            InteractionControl.Instance.RemoveInteraction();
+        }
+
     }
 }

@@ -16,6 +16,10 @@ public class UIExtentControl : MonoBehaviour
 
     UIControl control;
 
+    SmallDialogManage smallDialogManage;    //小对话框
+    BigDialogManage bigDialogManage;        //大对话框
+    NPCDialogManage npcDialogManage;        //人物对话框
+
     private void Awake()
     {
         if(instance != null)
@@ -27,43 +31,26 @@ public class UIExtentControl : MonoBehaviour
         showStack = new Stack<GameObject>();
         control = GetComponent<UIControl>();
     }
+    private void Start()
+    {
+        smallDialogManage = GetComponentInChildren<SmallDialogManage>();
+        bigDialogManage = GetComponentInChildren<BigDialogManage>();
+        npcDialogManage = GetComponentInChildren<NPCDialogManage>();
+    }
+
     private void OnDestroy()
     {
         instance = null;
     }
 
     Stack<GameObject> showStack;
-    [SerializeField]
-    string beginMenuName = "Panel_Button";
-    [SerializeField]
-    string backGroundName = "Panel_Image";
-    //[SerializeField]
-    //string instructName = "Panel_Text";
+
 
     /// <summary>
-    /// 用于显示或者关闭当前的UI，根据栈来判断
+    /// 用于显示或者关闭当前的UI，根据栈来判断，之后完成统一的UI管理，现在先放着
     /// </summary>
     public void ShowOrClose()
     {
-        if(showStack.Count == 0)
-        {
-            GameObject game = UICommon.Instance.GetGameObject(beginMenuName, control);
-            GameObject background = UICommon.Instance.GetGameObject(backGroundName, control);
-            game.SetActive(true);
-            background.SetActive(true);
-            showStack.Push(game);
-        }
-        else
-        {
-            GameObject game = showStack.Pop();
-            game.SetActive(false);
-            if(showStack.Count == 0)
-                UICommon.Instance.GetGameObject(backGroundName, control).SetActive(false);
-            else
-            {
-                showStack.Peek().SetActive(true);
-            }
-        }
     }
 
     /// <summary>
@@ -74,6 +61,45 @@ public class UIExtentControl : MonoBehaviour
         game.SetActive(true);
         showStack.Peek()?.SetActive(false);
         showStack.Push(game);
+    }
+
+    /// <summary>
+    /// 显示大对话框对话，对话内容用换行符分割
+    /// </summary>
+    /// <param name="strs">对话内容</param>
+    public void ShowBigDialog(string strs, Common.INonReturnAndNonParam endBehavior)
+    {
+        bigDialogManage.ShowBigDialog(strs, endBehavior);
+    }
+
+    /// <summary>
+    /// 显示小对话框对话，对话内容用换行符分割
+    /// </summary>
+    /// <param name="strs">对话内容</param>
+    public void ShowSmallDialog(string strs, Common.INonReturnAndNonParam endBehavior)
+    {
+        smallDialogManage.ShowSmallDialog(strs, endBehavior);
+    }
+    /// <summary>
+    /// 显示人物对话内容，对话内容用换行符分割
+    /// </summary>
+    /// <param name="strs">对话内容</param>
+    /// <param name="postion">显示位置</param>
+    public void ShowNPCDialog(string strs, Vector3 postion, Common.INonReturnAndNonParam endBehavior)
+    {
+        npcDialogManage.ShowDialog(strs, postion, endBehavior);
+    }
+
+    /// <summary>
+    /// 显示人物对话内容，对话内容用换行符分割
+    /// </summary>
+    /// <param name="strs">对话内容</param>
+    /// <param name="follow">跟随的目标</param>
+    /// <param name="height">偏移目标的高度</param>
+    public void ShowNPCDialog(string strs, Transform follow, float height, 
+        Common.INonReturnAndNonParam endBehavior)
+    {
+        npcDialogManage.ShowDialog(strs, follow, height, endBehavior);
     }
 
 }

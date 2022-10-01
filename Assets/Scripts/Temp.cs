@@ -8,10 +8,7 @@ public class Temp : MonoBehaviour
 
     void Start()
     {
-        Control.EnemyControl enemyControl = (Control.EnemyControl)Common.SceneObjectPool.Instance.
-            GetObject("Enemy", origin, new Vector3(12, -4, 0), Quaternion.identity);
-    }
-    private void Update()
-    {
+
+        Debug.Log( ColorUtility.ToHtmlStringRGB(Color.white));
     }
 }

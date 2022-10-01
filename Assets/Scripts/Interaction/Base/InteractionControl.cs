@@ -22,8 +22,6 @@ namespace Interaction
         }
 
         private Control.PlayerControl playerControl;
-        /// <summary>        /// 交互检测射线的起始点        /// </summary>
-        //public Transform beginPos;
         /// <summary>        /// 当前可以触发的交互信息        /// </summary>
         public InteractionBase nowInteractionInfo;
         /// <summary>        /// 是否正在交互中        /// </summary>
@@ -49,29 +47,6 @@ namespace Interaction
             isInteracting = false;
         }
 
-        /// <summary>
-        /// 检查是否有可以交互的对象
-        /// </summary>
-        protected void FixedUpdate()
-        {
-            //交互中就退出
-            if (isInteracting) 
-            {
-                return;
-            }
-            RaycastHit hit;
-            if (Physics.Raycast(playerControl.transform.position, playerControl.GetLookatDir() * 3, out hit, interacteCheckDistance))
-            {
-                InteractionBase hitInfo = hit.transform.GetComponent<InteractionBase>();
-                if (hitInfo != null)
-                {
-                    nowInteractionInfo = hitInfo;
-                    return;
-                }
-                nowInteractionInfo = null;
-            }
-        }
-
         /// <summary>        /// 运行交互事件        /// </summary>
         /// <param name="interactionInfo">发生的交互事件</param>
         public void RunInteraction(InteractionBase interactionInfo)
@@ -85,14 +60,6 @@ namespace Interaction
         }
 
         /// <summary>
-        /// 有任务系统的UI显示结束后调用，表示交互的UI结束了，准备接下来的操作吧
-        /// </summary>
-        public void ReRunInteraction()
-        {
-            RunInteraction(nowInteractionInfo);
-        }
-
-        /// <summary>
         /// 运行当前正在交互的交互事件
         /// </summary>
         public void RunInteraction()
@@ -101,9 +68,7 @@ namespace Interaction
             RunInteraction(nowInteractionInfo);
         }
 
-        /// <summary>
-        /// 表示停止交互，该系统重新开始工作
-        /// </summary>
+        /// <summary>   /// 表示停止交互，该系统重新开始工作    /// </summary>
         public void StopInteraction()
         {
             isInteracting = false;
@@ -121,12 +86,20 @@ namespace Interaction
         }
 
         /// <summary>
-        /// 添加交互信息，由于当交互事件不是射线点击时触发时需要添加交互就需要手动添加了
+        /// 添加一个交互事件，因为2D的交互变为触发式了
         /// </summary>
-        /// <param name="interaction">添加的交互信息</param>
-        public void AddInteractionInfo(InteractionBase interaction)
+        public void AddInteraction(InteractionBase interaction)
         {
             nowInteractionInfo = interaction;
         }
+
+        /// <summary>
+        /// 清除当前的交互事件
+        /// </summary>
+        public void RemoveInteraction()
+        {
+            nowInteractionInfo = null;
+        }
+
     }
 }

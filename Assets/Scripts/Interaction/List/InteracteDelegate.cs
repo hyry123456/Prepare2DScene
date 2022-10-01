@@ -1,11 +1,11 @@
-namespace Interaction
+ï»¿namespace Interaction
 {
     /// <summary>
-    /// Ò»¸öÄÚÈİÎª¿ÕµÄ½»»¥£¬ËùÓĞµÄĞĞÎªÓÉÍâ½ç´´½¨Ê±¶¨ÒåµÄÎ¯ÍĞ¾ö¶¨
+    /// ä¸€ä¸ªå†…å®¹ä¸ºç©ºçš„äº¤äº’ï¼Œæ‰€æœ‰çš„è¡Œä¸ºç”±å¤–ç•Œåˆ›å»ºæ—¶å®šä¹‰çš„å§”æ‰˜å†³å®š
     /// </summary>
     public class InteracteDelegate : InteractionBase
     {
-        /// <summary>   /// ÎŞ²ÎÎŞ·µ»ØÖµÎ¯ÍĞ£¬´«ÈëĞèÒªÖ´ĞĞµÄ·½·¨  /// </summary>
+        /// <summary>   /// æ— å‚æ— è¿”å›å€¼å§”æ‰˜ï¼Œä¼ å…¥éœ€è¦æ‰§è¡Œçš„æ–¹æ³•  /// </summary>
         public Common.INonReturnAndNonParam nonReturnAndNonParam;
 
         public override void InteractionBehavior()
