@@ -11,12 +11,6 @@ namespace Interaction
         {
             get
             {
-                if (instance == null)
-                {
-                    GameObject go = new GameObject("intreraction");
-                    instance = go.AddComponent<InteractionControl>();
-                    go.hideFlags = HideFlags.HideAndDontSave;
-                }
                 return instance;
             }
         }
@@ -31,15 +25,16 @@ namespace Interaction
 
         private InteractionControl() { }
 
-        private void Awake()
+        private void OnEnable()
         {
-            if(instance != null)
-            {
-                Destroy(gameObject);
-            }
             instance = this;
         }
-        
+
+        private void OnDisable()
+        {
+            instance = null;
+        }
+
         /// <summary>        /// 挂到主角上，由主角时时交互        /// </summary>
         private void Start()
         {

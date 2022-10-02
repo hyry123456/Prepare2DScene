@@ -1,18 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
+using Interaction;
 using UnityEngine;
 
-public class Chapter0_Part1 : MonoBehaviour
+namespace Task
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+    public class Chapter0_Part1 : ChapterPart
     {
-        
+        public override void EnterTaskEvent(Chapter chapter, bool isLoaded)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override void ExitTaskEvent(Chapter chapter)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override bool IsCompleteTask(Chapter chapter, InteracteInfo info)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

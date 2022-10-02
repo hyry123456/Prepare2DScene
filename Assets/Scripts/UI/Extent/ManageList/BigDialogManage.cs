@@ -67,7 +67,7 @@ namespace UI
 
         protected override void OnWaitLine()
         {
-            isDesireNext |= Input.GetKeyDown(KeyCode.O);
+            isDesireNext |= Input.GetKeyDown(KeyCode.Return);
         }
 
         protected override bool CheckWaitEnd()
@@ -83,7 +83,7 @@ namespace UI
         protected override void Update()
         {
             base.Update();
-            if (Input.GetKeyDown(KeyCode.O))
+            if (Input.GetKeyDown(KeyCode.Return))
             {
                 if(sb != null)
                     diglogText.text = sb.ToString();

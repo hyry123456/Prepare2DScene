@@ -10,17 +10,25 @@ namespace Control
         private Motor.Rigibody2DMotor motor;
         private Interaction.InteractionControl interactionControl;
         private PlayerSkillControl skillControl;
-
         public float dieY = -100;
-        
 
+        private bool isEnableInput;     //用来判断是否允许交互
+        public bool IsEnableInput => isEnableInput; //默认允许交互
+
+        /// <summary>
+        /// 有多个主角，可能放回一个null，需要判空
+        /// </summary>
         public static PlayerControl Instance {
             get
             {
-                if(instance == null)
-                    instance = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerControl>();
                 return instance; 
             }
+        }
+
+        public static void ChangeToPlayer(PlayerControl playerControl)
+        {
+            Instance.gameObject.SetActive(false);
+            playerControl.gameObject.SetActive(true);
         }
 
         public string verticalName = "Vertical";
@@ -31,24 +39,18 @@ namespace Control
         public string interacteName = "Interaction";
         public string rollName = "Roll";
 
-        private void Awake()
-        {
-            instance = this;
-        }
-        private void OnDestroy()
-        {
-            instance = null;
-        }
-        private void OnDisable()
-        {
-            instance = null;
-        }
+        //private void OnEnable()
+        //{
+        //    instance = this;
+        //}
 
         protected void Start()
         {
             motor = GetComponent<Motor.Rigibody2DMotor>();
             interactionControl = GetComponent<Interaction.InteractionControl>();
             skillControl = GetComponent<PlayerSkillControl>();
+            isEnableInput = true;
+            instance = this;
         }
 
         /// <summary>
@@ -56,6 +58,7 @@ namespace Control
         /// </summary>
         private void Update()
         {
+            if (!isEnableInput) return;
             if (Input.GetMouseButtonDown(0))
                 skillControl?.ReleaseChooseSkill();
         }
@@ -65,6 +68,7 @@ namespace Control
         /// </summary>
         private void FixedUpdate()
         {
+            if (!isEnableInput) return;
             //先获取这些，之后补充其他
             //float vertical = MyInput.Instance.GetAsis(verticalName);
             float horizontal = MyInput.Instance.GetAsis(horizontalName);

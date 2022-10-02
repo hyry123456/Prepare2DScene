@@ -11,7 +11,7 @@ namespace Task
         {
             chapterName = "–Ú’¬ ¬Ì‘∆÷ÆÀ¿";
             chapterTitle = "∫√À¿";
-            taskPartCount = 2;
+            taskPartCount = 1;
             chapterID = 0;
             chapterSavePath = Application.streamingAssetsPath + "/Task/Chapter/0.task";
             targetPart += "Chapter0_Part";
@@ -24,8 +24,31 @@ namespace Task
             AsynTaskControl.Instance.AddChapter(this);
         }
 
+        public override void BeginChapter()
+        {
+            base.BeginChapter();
+            Common.SustainCoroutine.Instance.AddCoroutine(SetGatewayDisable);
+        }
+
         public override void CompleteChapter()
         {
+            Common.SustainCoroutine.Instance.AddCoroutine(SetGatewayEnable);
+        }
+
+        bool SetGatewayEnable()
+        {
+            GameObject gameObject = Common.SceneObjectMap.Instance.FindControlObject("Gateway1");
+            Interaction.Gateway gateway = gameObject.GetComponent<Interaction.Gateway>();
+            gateway.enabled = true;
+            return true;
+        }
+
+        bool SetGatewayDisable()
+        {
+            GameObject gameObject = Common.SceneObjectMap.Instance.FindControlObject("Gateway1");
+            Interaction.Gateway gateway = gameObject.GetComponent<Interaction.Gateway>();
+            gateway.enabled = false;
+            return true;
         }
 
         public override void ExitChapter()

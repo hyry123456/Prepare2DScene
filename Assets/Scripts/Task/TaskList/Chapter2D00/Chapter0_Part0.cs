@@ -25,6 +25,11 @@ namespace Task
                     UIExtentControl.Instance.ShowSmallDialog(chapter.GetDiglogText(1), null);
                     GameObject interacte = Common.SceneObjectMap.Instance.FindControlObject("TempInteracte");
                     InteracteDelegate @delegate = interacte.AddComponent<InteracteDelegate>();
+
+                    GameObject gameObject = Common.SceneObjectMap.Instance.FindControlObject("Gateway1");
+                    Gateway gateway = gameObject.GetComponent<Gateway>();
+                    gateway.enabled = true;
+
                     @delegate.nonReturnAndNonParam = () =>
                     {
                         AsynTaskControl.Instance.CheckChapter(0, new InteracteInfo
@@ -42,8 +47,14 @@ namespace Task
 
         public override bool IsCompleteTask(Chapter chapter, InteracteInfo info)
         {
-            Debug.Log("Checl");
+            if(info.data == "0_0")
+            {
+                UIExtentControl.Instance.ShowSmallDialog("获得传送技能\n与传送门交互可进行传送",
+                    null);
+                return true;
+            }
             return false;
         }
+
     }
 }

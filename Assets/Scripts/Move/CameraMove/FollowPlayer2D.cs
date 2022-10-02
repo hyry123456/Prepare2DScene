@@ -6,7 +6,6 @@ namespace Control
     /// <summary> /// 2D摄像机跟随主角，摄像机的跟随是以一个速度跟随的  /// </summary>
     public class FollowPlayer2D : MonoBehaviour
     {
-        private Transform playerTrans;
         Camera nowCamera;   //当前的控制摄像机
         /// <summary>  /// 摄像机的目标点距主角头部的高度    /// </summary>
         [SerializeField]
@@ -19,13 +18,13 @@ namespace Control
 
         private void Start()
         {
-            playerTrans = PlayerControl.Instance.transform;
             nowCamera = GetComponent<Camera>();
         }
 
         private void Update()
         {
-            Vector3 target = playerTrans.position + Vector3.up * moveY;
+            if (PlayerControl.Instance == null) return;
+            Vector3 target = PlayerControl.Instance.transform.position + Vector3.up * moveY;
             target.z = -10; //摄像机默认参数
             Vector3 now = nowCamera.transform.position;
             float distance = Vector3.Distance(now, target);
