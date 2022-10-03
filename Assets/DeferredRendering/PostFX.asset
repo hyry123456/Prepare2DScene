@@ -95,3 +95,6 @@ MonoBehaviour:
     relativeThreshold: 0.063
     subpixelBlending: 1
     lowQuality: 0
+  rotateSetting:
+    rotateRadio: 0
+    isRotate: 0

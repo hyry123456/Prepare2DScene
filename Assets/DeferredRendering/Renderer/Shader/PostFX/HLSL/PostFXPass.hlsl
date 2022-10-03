@@ -469,6 +469,19 @@ float4 FXAAFragment(Varyings input) : SV_TARGET{
 	return ApplyFXAA(input.screenUV);
 }
 
+float4 RotateFragment(Varyings input) : SV_TARGET{
+	float2 uv = input.screenUV - float2(0.5,0.5);
+	float len = length(uv);
+	float percent = (1.0 - len) / 1.0;
+	float theta = percent * percent * _RotateRadio * 8.0;
+	float s = sin(theta);
+	float c = cos(theta);
+	uv = float2(dot(uv, float2(c, -s)), dot(uv, float2(s, c)));
+
+	uv += float2(0.5, 0.5);
+
+	return SAMPLE_TEXTURE2D(_PostFXSource, sampler_linear_clamp, uv);
+}
 
 
 #endif

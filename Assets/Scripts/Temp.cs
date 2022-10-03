@@ -9,6 +9,7 @@ public class Temp : MonoBehaviour
     void Start()
     {
 
-        Debug.Log( ColorUtility.ToHtmlStringRGB(Color.white));
+        GameObject obj = Common.SceneObjectMap.Instance.FindControlObject("TempInteracte");
+        Debug.Log(obj.name);
     }
 }

@@ -12,7 +12,7 @@ struct Attributes2D
 {
     float4 vertex   : POSITION;
     float2 texcoord : TEXCOORD0;
-    // float3 normalOS : NORMAL;
+	float4 color : COLOR;
     float4 tangentOS : TANGENT;
 	GI_ATTRIBUTE_DATA
 	UNITY_VERTEX_INPUT_INSTANCE_ID
@@ -26,6 +26,7 @@ struct Varyings2D
     float3 TtoW1 : NORMAL_TO_WORLD1;
     float3 TtoW2 : NORMAL_TO_WORLD2;
     float3 positionWS : WORLDPOS;
+	float4 color : COLOR;
 	UNITY_VERTEX_INPUT_INSTANCE_ID
 };
 
@@ -39,6 +40,7 @@ Varyings2D LitPassVertex (Attributes2D input) {
 	output.positionWS = TransformObjectToWorld(input.vertex.xyz);
 	output.positionCS_SS = TransformWorldToHClip(output.positionWS);
 	output.baseUV = TransformBaseUV(input.texcoord);
+	output.color = input.color;
 
 	#if defined(_NORMAL_MAP)
         float3 worldNormal = _2D_Normal;
@@ -75,7 +77,7 @@ void LitPassFragment (Varyings2D input,
 	#endif
 	
 	//纹理颜色
-	float4 base = GetBase(config);
+	float4 base = GetBase(config) * input.color;
 	float3 positionWS = input.positionWS;
 
 	#if defined(_CLIPPING)

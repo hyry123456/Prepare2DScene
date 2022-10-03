@@ -52,10 +52,6 @@ namespace DefferedRender
 			[Range(0, 1)]
 			public float scatterRadio;
 			public float checkDistance;
-
-			//[Range(0, 0.5f)]
-			//public float bilaterFilterStrength;
-			//public float biurRadius;
 		}
 
 		[SerializeField]
@@ -65,11 +61,8 @@ namespace DefferedRender
 			shrinkRadio = 0.00005f,
 			checkDistance = 100,
 			circleCount = 64,
-			//bilaterFilterStrength = 0.25f,
-			//biurRadius = 5
 		};
 		public BulkLight BulkLighting => bulkLight;
-
 
 		/// <summary>	/// Bloom参数设置	/// </summary>
 		[System.Serializable]
@@ -281,7 +274,43 @@ namespace DefferedRender
 		};
 		public FXAASetting FXAA => fXAA;
 
+		/// <summary>		/// 抗锯齿设置		/// </summary>
+		[Serializable]
+		public struct RotateTextureSetting
+		{
+            [Range(0, 3.14f)]
+			public float rotateRadio;
+			/// <summary>/// 用来判断是否需要旋转/// </summary>
+			public bool isRotate;
+		}
+
+		[SerializeField]
+		RotateTextureSetting rotateSetting = new RotateTextureSetting
+		{
+			rotateRadio = 0,
+			isRotate = false,
+		};
+		public RotateTextureSetting RotateSetting => rotateSetting;
+
+		/// <summary>/// 设置图片旋转的比例，在0-1之间的值	/// </summary>
+		public void SetRotateRadio(float radio01)
+        {
+			rotateSetting.rotateRadio = Mathf.Lerp(0f, 3.14f, radio01);
+		}
+		/// <summary>/// 开启图片旋转/// </summary>
+		public void EnableRotate()
+        {
+			rotateSetting.isRotate = true;
+		}
+		/// <summary>/// 关闭图片旋转/// </summary>
+		public void DisableRotate()
+		{
+			rotateSetting.isRotate = false;
+		}
+
+
 		Material material;
+
 
 		public Material Material
 		{

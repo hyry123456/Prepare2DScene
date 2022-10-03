@@ -28,7 +28,6 @@ namespace Info
                     assembly.CreateInstance(prefit + defaultSkill[i]);
                 skillManage.AddSkill(skillBase);
             }
-            fXSetting.SetColorFilter(Color.white);
         }
 
         public override void modifyHp(int dealtaHp)
@@ -37,19 +36,11 @@ namespace Info
             //fXSetting.SetColorFilter(Color.Lerp(Color.white, Color.red, (float)hp / maxHP));
         }
 
-        Color minCol = new Color(1, 0.7f, 0.7f);
 
-        private void Update()
-        {
-            Color target = Color.Lerp(minCol, Color.white, (float)hp / maxHP);
-            fXSetting.SetColorFilter(Color.Lerp(
-                fXSetting.ColorAdjustments.colorFilter, target, 0.5f * Time.deltaTime));
-        }
 
         protected override void DealWithDeath()
         {
             hp = maxHP;
-
         }
 
         

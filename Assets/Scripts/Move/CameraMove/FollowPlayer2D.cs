@@ -23,8 +23,8 @@ namespace Control
 
         private void Update()
         {
-            if (PlayerControl.Instance == null) return;
-            Vector3 target = PlayerControl.Instance.transform.position + Vector3.up * moveY;
+            if (ControlBase.Instance == null) return;
+            Vector3 target = ControlBase.Instance.GetPosition() + Vector3.up * moveY;
             target.z = -10; //摄像机默认参数
             Vector3 now = nowCamera.transform.position;
             float distance = Vector3.Distance(now, target);

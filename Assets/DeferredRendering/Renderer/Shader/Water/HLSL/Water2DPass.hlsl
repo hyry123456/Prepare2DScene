@@ -31,6 +31,7 @@ Varyings vert(Attributes input){
     UNITY_SETUP_INSTANCE_ID(input);
 	UNITY_TRANSFER_INSTANCE_ID(input, output);
     output.positionWS = TransformObjectToWorld(input.positionOS);
+    output.positionCS_SS = 
 }
 
 

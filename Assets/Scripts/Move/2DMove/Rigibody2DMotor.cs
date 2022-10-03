@@ -3,7 +3,7 @@
 namespace Motor
 {
     /// <summary>  /// 参考3d版本实现的2D移动  /// </summary>
-    public class Rigibody2DMotor : MonoBehaviour
+    public class Rigibody2DMotor : MoveBase
     {
         /// <summary>    /// velocity当前速度, desiredVelocity期望速度, 
         /// connectionVelocity连接物体的速度    /// </summary>
@@ -34,8 +34,6 @@ namespace Motor
         /// <summary> /// 接触面的法线，这个法线是平均法线，用来确定移动面的方向以及跳跃的方向 /// </summary>
         Vector2 contactNormal;
 
-        /// <summary>    /// 用来确定跳跃的时间，当跳跃时会归零，在物理帧时逐帧增加    /// </summary>
-        int stepSinceLastJump = 0;
         /// <summary>   /// 角色信息，用来确定移动速度   /// </summary>
         Info.CharacterInfo characterInfo;
         /// <summary>  /// 接触面的世界坐标，用来判断接触面的移动距离，等值调动物体移动 /// </summary>
@@ -65,20 +63,16 @@ namespace Motor
             //更新数据，用来对这一个物理帧的数据进行更新之类的
             UpdateState();
 
-            //传送
-            //if (!CheckTransing())   //非传送才执行下面的语句
-            //{
             //确定在空中还是在地面
             CheckTransing();
-                AdjustVelocity();
-                ClimbCheck();
-                if (desiredJump)
-                {
-                    Jump();
-                    desiredJump = false;
-                }
-                Rotate();
-            //}
+            AdjustVelocity();
+            ClimbCheck();
+            if (desiredJump)
+            {
+                Jump();
+                desiredJump = false;
+            }
+            Rotate();
 
             velocity = Vector2.ClampMagnitude(velocity, 10f);
 
@@ -86,23 +80,6 @@ namespace Motor
             ClearState();
         }
 
-        /// <summary>   /// 输入的移动值，由于是2D，因此只有水平移动   /// </summary>
-        /// <param name="horizontal">水平移动值</param>
-        public void Move(float horizontal)
-        {
-            desiredVelocity = Vector2.right * horizontal;
-            desiredVelocity = desiredVelocity * characterInfo.runSpeed;
-            //Debug.Log(desiredVelocity);
-
-            ////或运算，避免跳跃
-            //desiredJump |= Input.GetButtonDown("Jump");
-        }
-
-        /// <summary>  /// 外部输入的跳跃请求  /// </summary>
-        public void DesireJump()
-        {
-            desiredJump = true;
-        }
 
         Vector3 targetPos;      //传送到的目标点
         Vector3 direct;         //移动方向
@@ -152,11 +129,8 @@ namespace Motor
             velocity += dir * maxSpeed;
             return true;
         }
-
-
         void UpdateState()
         {
-            stepSinceLastJump += 1;
             velocity = body2D.velocity;
             //当不在地面时执行贴近地面方法
             if (onGround/*在地上*/)
@@ -315,18 +289,12 @@ namespace Motor
             }
             else
             {
-                //Debug.Log(preClimbState);
                 if(!onGround && preClimbState)
                 {
                     velocity += Vector2.up * climbData.z;
                 }
                 preClimbState = false;
             }
-            //bool nowState = (hit.collider != null && 
-            //    Vector2.Dot(hit.normal, Vector2.up) > minGroundDot && !onGround)? true : false;
-            //if(!nowState && preClimbState)
-            //    velocity += Vector2.up * climbData.z;
-            //preClimbState = nowState;
         }
 
         /// <summary>       
@@ -344,5 +312,15 @@ namespace Motor
 
         }
 
+        public override void Move(float horizontal)
+        {
+            desiredVelocity = Vector2.right * horizontal;
+            desiredVelocity = desiredVelocity * characterInfo.runSpeed;
+        }
+
+        public override void DesireJump()
+        {
+            desiredJump = true;
+        }
     }
 }

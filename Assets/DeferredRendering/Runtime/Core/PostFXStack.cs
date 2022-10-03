@@ -30,6 +30,7 @@ namespace DefferedRender
 			Fog,
 			CaculateGray,
 			FXAA,
+			RotateTexture,
 		}
 
         const string bufferName = "PostFX";
@@ -149,6 +150,11 @@ namespace DefferedRender
 				DrawFog(sourceId);
 			}
 
+            if (settings.RotateSetting.isRotate)
+            {
+				RotateTexture(sourceId);
+			}
+
 			if (settings.BulkLighting.useBulkLight)
             {
 				DrawBulkLight(sourceId);
@@ -239,6 +245,18 @@ namespace DefferedRender
 
 			Draw(0, targetTexId, Pass.GBufferFinal);
 			ExecuteBuffer();
+		}
+
+		private void RotateTexture(int source)
+        {
+			RenderTextureFormat format = useHDR ?
+				RenderTextureFormat.DefaultHDR : RenderTextureFormat.Default;
+			int width = camera.pixelWidth, height = camera.pixelHeight;
+			buffer.GetTemporaryRT(bulkLightTargetTexId, width, height, 0, FilterMode.Bilinear, format);
+			buffer.SetGlobalFloat("_RotateRadio", settings.RotateSetting.rotateRadio);
+			Draw(source, bulkLightTargetTexId, Pass.RotateTexture);      //旋转图片
+			Draw(bulkLightTargetTexId, source, Pass.Copy);      //拷贝回主纹理
+			buffer.ReleaseTemporaryRT(bulkLightTargetTexId);
 		}
 
 		/// <summary>		/// 渲染体积光		/// </summary>

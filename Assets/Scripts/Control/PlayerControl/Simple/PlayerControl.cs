@@ -4,32 +4,12 @@ using Common.ResetInput;
 
 namespace Control
 {
-    public class PlayerControl : MonoBehaviour
+    public class PlayerControl : ControlBase
     {
-        private static PlayerControl instance;
-        private Motor.Rigibody2DMotor motor;
+        private Motor.MoveBase motor;
         private Interaction.InteractionControl interactionControl;
         private PlayerSkillControl skillControl;
         public float dieY = -100;
-
-        private bool isEnableInput;     //用来判断是否允许交互
-        public bool IsEnableInput => isEnableInput; //默认允许交互
-
-        /// <summary>
-        /// 有多个主角，可能放回一个null，需要判空
-        /// </summary>
-        public static PlayerControl Instance {
-            get
-            {
-                return instance; 
-            }
-        }
-
-        public static void ChangeToPlayer(PlayerControl playerControl)
-        {
-            Instance.gameObject.SetActive(false);
-            playerControl.gameObject.SetActive(true);
-        }
 
         public string verticalName = "Vertical";
         public string horizontalName = "Horizontal";
@@ -39,19 +19,15 @@ namespace Control
         public string interacteName = "Interaction";
         public string rollName = "Roll";
 
-        //private void OnEnable()
-        //{
-        //    instance = this;
-        //}
-
-        protected void Start()
+        private void OnEnable()
         {
-            motor = GetComponent<Motor.Rigibody2DMotor>();
+            motor = GetComponent<Motor.MoveBase>();
             interactionControl = GetComponent<Interaction.InteractionControl>();
             skillControl = GetComponent<PlayerSkillControl>();
             isEnableInput = true;
             instance = this;
         }
+
 
         /// <summary>
         /// 时时刷新的控制属性的存放位置
@@ -69,8 +45,6 @@ namespace Control
         private void FixedUpdate()
         {
             if (!isEnableInput) return;
-            //先获取这些，之后补充其他
-            //float vertical = MyInput.Instance.GetAsis(verticalName);
             float horizontal = MyInput.Instance.GetAsis(horizontalName);
             bool jump = MyInput.Instance.GetButtonDown(jumpName);
             bool esc = MyInput.Instance.GetButtonDown("ESC");
@@ -79,9 +53,6 @@ namespace Control
             motor.Move(horizontal);
             if (jump)
                 motor.DesireJump();
-
-            //if(skill)
-            //    motor.TransferToPosition(HookRopeManage.Instance.Target, hookSpeed);
             
             if (esc)
                 UIExtentControl.Instance?.ShowOrClose();
@@ -113,12 +84,9 @@ namespace Control
             else return Vector3.zero;
         }
 
-        ///// <summary>
-        ///// 获得移动基类
-        ///// </summary>
-        //public Motor.Motor GetMotor()
-        //{
-        //    return motor;
-        //}
+        public override Vector3 GetPosition()
+        {
+            return transform.position;
+        }
     }
 }
