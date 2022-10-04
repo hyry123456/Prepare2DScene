@@ -67,14 +67,14 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _ParticleSize: 0.05
+    - _ParticleSize: 0.1
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 5
     - _UVSec: 0
-    - _YScale: 2
+    - _YScale: 3.23
     - _ZWrite: 0
     m_Colors:
-    - _Color: {r: 0, g: 0.25, b: 0.003921569, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []

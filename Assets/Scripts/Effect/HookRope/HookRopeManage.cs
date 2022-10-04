@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using Common;
 using DefferedRender;
 
@@ -20,19 +20,19 @@ public class HookRopeManage : MonoBehaviour
     private static HookRopeManage instance;
     
 
-    /// <summary>    /// ´æ´¢ÓÃµÄÁ´±í    /// </summary>
+    /// <summary>    /// å­˜å‚¨ç”¨çš„é“¾è¡¨    /// </summary>
     PoolingList<Transform> poolingList;
-    Transform target;   //×î½üµÄÄ¿±ê
-    float particleSize; //Á£×Ó´óĞ¡£¬¶ÁÈ¡²ÄÖÊµÄÊı¾İ
-    float maxHookDistance = 50; //¹³ËøµÄ¼ì²é¾àÀë£¬ĞèÒªĞŞ¸Ä¾ÍÖ±½Ó¸ÄÕâÀï
-    /// <summary> /// 2D¿ò¼Ü²»ºÃäÖÈ¾Á£×Ó£¬Òò´ËÊ¹ÓÃUI×÷Îª¹³ËøµÄÄ¿±ê /// </summary>
+    Transform target;   //æœ€è¿‘çš„ç›®æ ‡
+    float particleSize; //ç²’å­å¤§å°ï¼Œè¯»å–æè´¨çš„æ•°æ®
+    float maxHookDistance = 50; //é’©é”çš„æ£€æŸ¥è·ç¦»ï¼Œéœ€è¦ä¿®æ”¹å°±ç›´æ¥æ”¹è¿™é‡Œ
+    /// <summary> /// 2Dæ¡†æ¶ä¸å¥½æ¸²æŸ“ç²’å­ï¼Œå› æ­¤ä½¿ç”¨UIä½œä¸ºé’©é”çš„ç›®æ ‡ /// </summary>
     GameObject hookUI;
-    /// <summary>  /// äÖÈ¾ÓÃµÄÉş×Ó¶ÔÏó  /// </summary>
+    /// <summary>  /// æ¸²æŸ“ç”¨çš„ç»³å­å¯¹è±¡  /// </summary>
     GameObject ropeUI;
-    /// <summary> /// Éş×ÓµÄ²ÄÖÊ /// </summary>
+    /// <summary> /// ç»³å­çš„æè´¨ /// </summary>
     Material ropeMat;
 
-    /// <summary>    /// µÃµ½×î½üµÄÄ¿±ê¶ÔÏó£¬¿ÉÄÜÎª¿Õ    /// </summary>
+    /// <summary>    /// å¾—åˆ°æœ€è¿‘çš„ç›®æ ‡å¯¹è±¡ï¼Œå¯èƒ½ä¸ºç©º    /// </summary>
     public Transform Target
     {
         get
@@ -59,7 +59,7 @@ public class HookRopeManage : MonoBehaviour
     }
 
     /// <summary>
-    /// ½«ĞèÒª×÷Îª¹³Ëø½ÚµãµÄÄ£ĞÍÎ»ÖÃ×ø±ê´«Èë£¬×÷ÎªÅĞ¶ÏÎ»ÖÃµÄ¸ù¾İ
+    /// å°†éœ€è¦ä½œä¸ºé’©é”èŠ‚ç‚¹çš„æ¨¡å‹ä½ç½®åæ ‡ä¼ å…¥ï¼Œä½œä¸ºåˆ¤æ–­ä½ç½®çš„æ ¹æ®
     /// </summary>
     public void AddNode(Transform pos)
     {
@@ -81,36 +81,26 @@ public class HookRopeManage : MonoBehaviour
             return;
         }
         Transform camTran = camera.transform;
-        Vector4[] planes = GPUDravinBase.GetFrustumPlane(camera);
+        Vector3 left = camera.ViewportToWorldPoint(Vector2.zero);
+        Vector3 right = camera.ViewportToWorldPoint(Vector2.one);
         int minIndex = -1;
         for(int i=0; i<poolingList.size; i++)
         {
-            for(int j=0; j < 6; j++)
+            Vector2 position = poolingList.list[i].position;
+            Vector2 camPos = camTran.position;
+            if (position.x < left.x || position.x > right.x
+                || position.y < left.y || position.y > right.y)
+                continue;
+
+
+            float newDis = (position - camPos).sqrMagnitude;
+            if (newDis > maxHookDistance * maxHookDistance) continue;
+            if (minIndex == -1)
+                minIndex = i;
+            else if(newDis < (poolingList.list[minIndex].transform.position
+                - camera.transform.position).sqrMagnitude)
             {
-                Vector3 oriPos = poolingList.list[i].transform.position;
-                //·µ»Øfalse£¬Ò²¾ÍÊÇÔÚÀïÃæ¾ÍÍË³ö
-                if (GPUDravinBase.IsOutsideThePlane(planes[j], oriPos +
-                    camTran.right * particleSize + camTran.up * -particleSize)
-                    && GPUDravinBase.IsOutsideThePlane(planes[j], oriPos +
-                    camTran.right * -particleSize + camTran.up * -particleSize)
-                    && GPUDravinBase.IsOutsideThePlane(planes[j], oriPos +
-                    camTran.right * -particleSize + camTran.up * particleSize)
-                    && GPUDravinBase.IsOutsideThePlane(planes[j], oriPos +
-                    camTran.right * particleSize + camTran.up * particleSize))
-                    break;
-                
-                if(j == 5)
-                {
-                    float newDis = (oriPos - camera.transform.position).sqrMagnitude;
-                    if (newDis > maxHookDistance * maxHookDistance) continue;
-                    if (minIndex == -1)
-                        minIndex = i;
-                    else if(newDis < (poolingList.list[minIndex].transform.position
-                        - camera.transform.position).sqrMagnitude)
-                    {
-                        minIndex = i;
-                    }
-                }
+                minIndex = i;
             }
         }
         if(minIndex != -1)
@@ -150,17 +140,16 @@ public class HookRopeManage : MonoBehaviour
     }
 
 
-    Vector3 finalPos;
+    Vector2 finalPos;
     Transform begin;
-    bool isLink = false;
+    public bool isLink = false;
 
-    /// <summary>    /// ÏÔÊ¾Á¬½ÓµÄÉş×ÓÍ¼Æ¬    /// </summary>
-    public void LinkHookRope(Vector3 target, Transform begin)
+    /// <summary>    /// æ˜¾ç¤ºè¿æ¥çš„ç»³å­å›¾ç‰‡    /// </summary>
+    public void LinkHookRope(Vector2 target, Transform begin)
     {
         finalPos = target;
         this.begin = begin;
         isLink = true;
-
     }
 
     public void CloseHookRope()

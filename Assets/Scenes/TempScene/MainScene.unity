@@ -4052,6 +4052,49 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1079005591
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1079005592}
+  - component: {fileID: 1079005593}
+  m_Layer: 0
+  m_Name: Node (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1079005592
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1079005591}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -43.21, y: -1.12, z: 9.3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1550071613}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1079005593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1079005591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a97c3ad231d0cb41bd6b798a7a430f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1151486390
 GameObject:
   m_ObjectHideFlags: 0
@@ -4396,8 +4439,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc37344d7a1a48b44928e526cee12272, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groundAcceleration: 10
-  airAcceleration: 5
+  groundAcceleration: 30
+  airAcceleration: 15
   jumpHeight: 2
   maxAirJumps: 2
   maxGroundAngle: 25
@@ -4450,7 +4493,7 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
@@ -4490,7 +4533,9 @@ MonoBehaviour:
   walkSpeed: 5
   rotateSpeed: 10
   nearAttackDistance: 1
-  defaultSkill: []
+  defaultSkill:
+  - SingleBullet
+  - HookRope
   fXSetting: {fileID: 0}
 --- !u!114 &1286452433
 MonoBehaviour:
@@ -4748,8 +4793,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc37344d7a1a48b44928e526cee12272, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groundAcceleration: 10
-  airAcceleration: 5
+  groundAcceleration: 30
+  airAcceleration: 15
   jumpHeight: 2
   maxAirJumps: 2
   maxGroundAngle: 25
@@ -4802,7 +4847,7 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
@@ -4844,6 +4889,7 @@ MonoBehaviour:
   nearAttackDistance: 1
   defaultSkill:
   - SingleBullet
+  - HookRope
   fXSetting: {fileID: 0}
 --- !u!114 &1482335667
 MonoBehaviour:
@@ -4858,6 +4904,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nowSkill: 0
+--- !u!1 &1550071612
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1550071613}
+  m_Layer: 0
+  m_Name: Hope
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1550071613
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1550071612}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.0173063, y: -2.154842, z: 4.2197843}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1840515759}
+  - {fileID: 1079005592}
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1600390269
 GameObject:
   m_ObjectHideFlags: 0
@@ -14322,6 +14400,49 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1840515758
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1840515759}
+  - component: {fileID: 1840515760}
+  m_Layer: 0
+  m_Name: Node
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1840515759
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1840515758}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -43.21, y: 5.88, z: 9.300001}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1550071613}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1840515760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1840515758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a97c3ad231d0cb41bd6b798a7a430f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1907651922
 GameObject:
   m_ObjectHideFlags: 0
@@ -14948,8 +15069,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc37344d7a1a48b44928e526cee12272, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groundAcceleration: 10
-  airAcceleration: 5
+  groundAcceleration: 30
+  airAcceleration: 15
   jumpHeight: 2
   maxAirJumps: 2
   maxGroundAngle: 25
@@ -15002,7 +15123,7 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
@@ -15042,7 +15163,9 @@ MonoBehaviour:
   walkSpeed: 5
   rotateSpeed: 10
   nearAttackDistance: 1
-  defaultSkill: []
+  defaultSkill:
+  - SingleBullet
+  - HookRope
   fXSetting: {fileID: 0}
 --- !u!114 &2041892853
 MonoBehaviour:
