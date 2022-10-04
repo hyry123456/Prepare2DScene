@@ -15,6 +15,7 @@ namespace Control {
         public Animator player_anim;
         public GameObject anmiGO;      //为骨骼动画准备的GO；
         private Rigidbody2D[] Rbs;
+        public Collider2D coll;    //用以判断是否接触地面
 
         [SerializeField]
         string horizontalName = "Horizontal";
@@ -117,22 +118,34 @@ namespace Control {
             motors[nowIndex]?.Move(horizontal);
             if(horizontal != 0 && !jump )
             {
-                Debug.LogError("动画播放");
-                //player_anim.SetBool("Run", ture);
+                //Debug.LogError("移动动画播放");
+                player_anim.SetBool("Run", true);
             }
-
+            if(horizontal == 0)
+            {
+                player_anim.SetBool("Run", false);
+            }
             if (jump) { 
                 motors[nowIndex]?.DesireJump();
                 Debug.LogError("跳跃动画播放！");
-                //player_anim.SetBool("Jump", ture);
+                player_anim.SetBool("Jump", true);
 
             }
-            
             if (Rbs[nowIndex].velocity.y < 0 && !((Motor.Rigibody2DMotor)motors[nowIndex]).OnGround)
             {
-                //anim.SetBool("Jumping", false);
-                //anim.SetBool("Falling", true);
+                player_anim.SetBool("Jump", false);
+                player_anim.SetBool("Down", true);
                 Debug.LogError("下落动画播放");
+            }
+            if(coll.tag == "Ground")
+            {
+                player_anim.SetBool("Down", false);
+                Debug.LogError("玩家接触地面");
+            }
+            if (((Motor.Rigibody2DMotor)motors[nowIndex]).OnGround)
+            {
+                player_anim.SetBool("Down", false);
+                Debug.LogError("玩家接触地面");
             }
             if (esc)
                 UIExtentControl.Instance?.ShowOrClose();
