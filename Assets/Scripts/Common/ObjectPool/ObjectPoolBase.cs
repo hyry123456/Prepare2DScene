@@ -18,8 +18,8 @@ namespace Common
         /// <summary> /// 初始化方法，用来对该对象进行初始化，只实现显示以及旋转初始化  /// </summary>
         public virtual void InitializeObject(Vector3 positon, Vector3 lookAt)
         {
-            gameObject.transform.position = positon;
             gameObject.transform.LookAt(lookAt);
+            gameObject.transform.position = positon;
             gameObject.SetActive(true);
         }
 
@@ -28,10 +28,5 @@ namespace Common
         {
             SceneObjectPool.Instance.RecyclingObjects(this);
         }
-
-        /// <summary>
-        /// 初始化时的补充方法，由Unity调用，每一次Get后就会调用
-        /// </summary>
-        protected abstract void OnEnable();
     }
 }

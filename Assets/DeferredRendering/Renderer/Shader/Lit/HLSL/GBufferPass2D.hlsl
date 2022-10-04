@@ -99,7 +99,7 @@ void LitPassFragment (Varyings2D input,
 	// float3 bakeColor = GetBakeDate(GI_FRAGMENT_DATA(input), positionWS, perNormal);
 	float oneMinusReflectivity = OneMinusReflectivity(specularData.r);
 	float3 diffuse = base.rgb * oneMinusReflectivity;
-	float3 bakeColor = diffuse + GetEmission(config);				//通过金属度缩减烘焙光，再加上自发光，之后会在着色时直接加到最后的结果上
+	float3 bakeColor = GetEmission(config);				//通过金属度缩减烘焙光，再加上自发光，之后会在着色时直接加到最后的结果上
 	// float4 shiftColor = GetShiftColor(config);			//分别使用三张图的透明通道写入
 
 	_GBufferColorTex = float4(base.xyz, 1);

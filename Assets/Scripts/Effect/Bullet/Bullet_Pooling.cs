@@ -16,7 +16,7 @@ public class Bullet_Pooling : ObjectPoolBase
     float moveSpeed = 10;
     ParticleDrawData drawData;
     /// <summary>    /// 每一帧初始化一下时间，只有时间需要次次初始化    /// </summary>
-    protected override void OnEnable()
+    protected void OnEnable()
     {
         time = 0;
     }

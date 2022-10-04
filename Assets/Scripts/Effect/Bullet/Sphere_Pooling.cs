@@ -8,9 +8,6 @@ using UnityEngine;
 /// </summary>
 public class Sphere_Pooling : ObjectPoolBase
 {
-    protected override void OnEnable()
-    {
-    }
     public delegate void Collision2DEnter(Collision2D collision);
     public Collision2DEnter collsionEnter;
     ParticleDrawData drawData;

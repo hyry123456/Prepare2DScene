@@ -150,7 +150,7 @@ float4 DrawGBufferColorFragment(Varyings i) : SV_Target
     else{
         color = baseColor.rgb;
     }
-    // color += bakeColor.rgb;
+    color += bakeColor.rgb;
 
     return float4(color, 1);
 }

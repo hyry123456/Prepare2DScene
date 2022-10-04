@@ -88,8 +88,6 @@ Shader "Unlit/HookRope"
                 float4 color = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.uv.xy) * _Color;
 
                 return color;
-                // return float4(i.uv.xy, 0, 1);
-                // return i.color;
             }
 
 

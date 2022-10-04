@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
 using System.Text;
 using UnityEngine.UI;
@@ -9,29 +9,29 @@ namespace UI
     public class NPCDialogUI : ObjectPoolBase
     {
         Queue<string> readyStrings;
-        /// <summary>  /// ´æ´¢ËùÓĞÎÄ±¾ÓÃµÄ½á¹¹   /// </summary>
+        /// <summary>  /// å­˜å‚¨æ‰€æœ‰æ–‡æœ¬ç”¨çš„ç»“æ„   /// </summary>
         StringBuilder sb;
-        /// <summary>  /// µ±Ç°¸Ä±äÖĞµÄÎÄ×ÖÑÕÉ«  /// </summary>
+        /// <summary>  /// å½“å‰æ”¹å˜ä¸­çš„æ–‡å­—é¢œè‰²  /// </summary>
         Color changeColor;
-        /// <summary>  /// µ±Ç°Í¸Ã÷ÖĞµÄÎÄ±¾   /// </summary>
+        /// <summary>  /// å½“å‰é€æ˜ä¸­çš„æ–‡æœ¬   /// </summary>
         string alphaChar;
-        /// <summary> /// ´ıÌí¼ÓµÄ×Ö·ûÔÚµ±Ç°ÏÔÊ¾µÄÎÄ±¾µÄ±àºÅ   /// </summary>
+        /// <summary> /// å¾…æ·»åŠ çš„å­—ç¬¦åœ¨å½“å‰æ˜¾ç¤ºçš„æ–‡æœ¬çš„ç¼–å·   /// </summary>
         int nowIndex;
-        /// <summary>  /// Ã¿Ò»ĞĞÎÄ±¾µÄÈ«²¿ÄÚÈİÏÔÊ¾ºóĞèÒªµÈ´ıµÄÇĞ»»Ê±¼ä  /// </summary>
+        /// <summary>  /// æ¯ä¸€è¡Œæ–‡æœ¬çš„å…¨éƒ¨å†…å®¹æ˜¾ç¤ºåéœ€è¦ç­‰å¾…çš„åˆ‡æ¢æ—¶é—´  /// </summary>
         float MaxLineWaitTime = 2f;
-        float nowLineWaitTime = 0;  //µ±Ç°µÄµÈ´ıÊ±¼ä
-        /// <summary>   /// Ã¿Ò»¸ö×Ö·ûÏÔÊ¾Ê±ĞèÒªµÄÊ±¼ä   /// </summary>
+        float nowLineWaitTime = 0;  //å½“å‰çš„ç­‰å¾…æ—¶é—´
+        /// <summary>   /// æ¯ä¸€ä¸ªå­—ç¬¦æ˜¾ç¤ºæ—¶éœ€è¦çš„æ—¶é—´   /// </summary>
         float perCharWaitTime = 0.4f;
-        /// <summary>  /// µ±Ç°ÏÔÊ¾µÄ×Ö·û   /// </summary>
+        /// <summary>  /// å½“å‰æ˜¾ç¤ºçš„å­—ç¬¦   /// </summary>
         StringBuilder nowShowString;
-        /// <summary>  /// ÏÔÊ¾ÓÃµÄUI¶ÔÏó  /// </summary>
+        /// <summary>  /// æ˜¾ç¤ºç”¨çš„UIå¯¹è±¡  /// </summary>
         Text text;
-        /// <summary>  /// ¸úËæµÄ¶ÔÏóÎ»ÖÃ  /// </summary>
+        /// <summary>  /// è·Ÿéšçš„å¯¹è±¡ä½ç½®  /// </summary>
         Transform followPosition;
-        /// <summary>  /// ÔÚ¸Ã¶ÔÏóÍ·¶¥µÄ¸ß¶È  /// </summary>
+        /// <summary>  /// åœ¨è¯¥å¯¹è±¡å¤´é¡¶çš„é«˜åº¦  /// </summary>
         float upHeight;
 
-        /// <summary>   /// ½áÊøÊ±Ö´ĞĞµÄĞĞÎª    /// </summary>
+        /// <summary>   /// ç»“æŸæ—¶æ‰§è¡Œçš„è¡Œä¸º    /// </summary>
         protected INonReturnAndNonParam endBehavior;
 
         public override void InitializeObject(Vector3 positon, Quaternion quaternion)
@@ -48,12 +48,12 @@ namespace UI
 
         private void Update()
         {
-            //ÅĞ¶ÏÊÇ·ñĞèÒª¸úËæÄ³¸ö½ÇÉ«
+            //åˆ¤æ–­æ˜¯å¦éœ€è¦è·ŸéšæŸä¸ªè§’è‰²
             if(followPosition != null)
                 transform.position = followPosition.position + Vector3.up * upHeight;
             if(sb == null)  
             {
-                //Îª¿ÕÓĞÁ½ÖÖ¿ÉÄÜ£¬Ò»ÖÖÊÇ»¹ÔÚµÈ´ı¼ÓÔØÖĞ
+                //ä¸ºç©ºæœ‰ä¸¤ç§å¯èƒ½ï¼Œä¸€ç§æ˜¯è¿˜åœ¨ç­‰å¾…åŠ è½½ä¸­
                 if (readyStrings != null && readyStrings.Count > 0)
                 {
                     if (nowLineWaitTime > MaxLineWaitTime)
@@ -64,17 +64,17 @@ namespace UI
                     }
                     else
                     {
-                        //»¹ÔÚµÈ´ıÖĞ£¬Ö±½ÓÍË³ö
+                        //è¿˜åœ¨ç­‰å¾…ä¸­ï¼Œç›´æ¥é€€å‡º
                         nowLineWaitTime += Time.deltaTime;
                         return;
                     }
                 }
-                //Ò»ÖÖÊÇ½áÊøÁË£¬ĞèÒªËÀÍö
+                //ä¸€ç§æ˜¯ç»“æŸäº†ï¼Œéœ€è¦æ­»äº¡
                 else
                 {
                     if(nowLineWaitTime > MaxLineWaitTime)
                     {
-                        CloseObject();  //¹Ø±Õ¸ÃUI£¬»Øµ½³ØÖĞ
+                        CloseObject();  //å…³é—­è¯¥UIï¼Œå›åˆ°æ± ä¸­
                         if(endBehavior != null)
                         {
                             endBehavior();
@@ -90,7 +90,7 @@ namespace UI
             if(alphaChar == null)
             {
                 changeColor = text.color; changeColor.a = 0;
-                if (nowIndex >= sb.Length)      //ÕâĞĞÏÔÊ¾½áÊøÁË£¬ÒÆ³ı¸ÃĞĞ
+                if (nowIndex >= sb.Length)      //è¿™è¡Œæ˜¾ç¤ºç»“æŸäº†ï¼Œç§»é™¤è¯¥è¡Œ
                 {
                     sb = null;
                     nowLineWaitTime = 0;
@@ -124,7 +124,7 @@ namespace UI
             }
             alphaChar = null;
             sb = null;
-            nowLineWaitTime = MaxLineWaitTime + 1;      //Ò»¿ªÊ¼¾ÍÏÔÊ¾¸ÃĞĞ
+            nowLineWaitTime = MaxLineWaitTime + 1;      //ä¸€å¼€å§‹å°±æ˜¾ç¤ºè¯¥è¡Œ
             followPosition = follow;
             this.upHeight = upHeight;
             this.endBehavior = endBehavior;
@@ -141,15 +141,11 @@ namespace UI
             }
             alphaChar = null;
             sb = null;
-            nowLineWaitTime = MaxLineWaitTime + 1;      //Ò»¿ªÊ¼¾ÍÏÔÊ¾¸ÃĞĞ
+            nowLineWaitTime = MaxLineWaitTime + 1;      //ä¸€å¼€å§‹å°±æ˜¾ç¤ºè¯¥è¡Œ
             transform.position = postion;
-            followPosition = null;      //²»¸úËæ½ÇÉ«
+            followPosition = null;      //ä¸è·Ÿéšè§’è‰²
             this.endBehavior = endBehavior;
         }
 
-        protected override void OnEnable()
-        {
-
-        }
     }
 }

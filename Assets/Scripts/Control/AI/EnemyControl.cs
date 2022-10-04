@@ -81,7 +81,7 @@ namespace Control
             }
         }
 
-        protected override void OnEnable()
+        protected void OnEnable()
         {
             nowTime = 0;
         }

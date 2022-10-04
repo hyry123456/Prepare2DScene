@@ -21,21 +21,21 @@ MonoBehaviour:
     maxMarchDistance: 500
     depthThickness: 1
   bulkLight:
-    useBulkLight: 0
+    useBulkLight: 1
     shrinkRadio: 100
-    circleCount: 64
+    circleCount: 10
     scatterRadio: 0
     checkDistance: 30
   bloom:
-    maxIterations: 1
-    downscaleLimit: 100
+    maxIterations: 6
+    downscaleLimit: 1
     bicubicUpsampling: 0
     threshold: 1.5
     thresholdKnee: 0.837
     intensity: 1
     fadeFireflies: 1
     mode: 1
-    scatter: 0.95
+    scatter: 0.21
   toneMapping:
     mode: 1
   colorAdjustments:
@@ -45,7 +45,7 @@ MonoBehaviour:
     hueShift: 0
     saturation: 0
   whiteBalance:
-    temperature: 47
+    temperature: 0
     tint: 0
   splitToning:
     shadows: {r: 0.5, g: 0.5, b: 0.5, a: 1}

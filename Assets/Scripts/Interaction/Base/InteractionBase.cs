@@ -1,32 +1,49 @@
-using System.Collections;
+ï»¿using System.Collections;
 using UnityEngine;
 
 namespace Interaction
 {
-    /// <summary>    /// ½»»¥ĞÅÏ¢Àà£¬ÓÃÀ´´æ´¢½»»¥ÄÚÈİ    /// </summary>
+    /// <summary>    /// äº¤äº’ä¿¡æ¯ç±»ï¼Œç”¨æ¥å­˜å‚¨äº¤äº’å†…å®¹    /// </summary>
     public struct InteracteInfo
     {
         public string data;
         public int id;
     }
 
-    /// <summary>    /// ½»»¥Àà»ùÀà£¬¹ÒÔÚÎïÌåÉÏ£¬ÓÃÀ´Ö´ĞĞ¼òµ¥µÄ½»»¥    /// </summary>
+    /// <summary>    /// äº¤äº’ç±»åŸºç±»ï¼ŒæŒ‚åœ¨ç‰©ä½“ä¸Šï¼Œç”¨æ¥æ‰§è¡Œç®€å•çš„äº¤äº’    /// </summary>
     public abstract class InteractionBase : MonoBehaviour
     {
         [HideInInspector]
         public InteractionType interactionType;
-        /// <summary>        /// ĞèÒª×¢Òâ£¬½»»¥IDÒ»°ã²»ÊÇÓÃÓÚÌØ±ğÖ¸¶¨£¬¶øÊÇÔÚÒ»Ğ©ÌØÊâÇé¿öÏÂ½øĞĞÁÙÊ±¸³ÖµÓÃµÄ
-        /// Ò²¾ÍÊÇËµ³õÊ¼»¯²»ĞèÒª¸³Öµ¸ÃÊôĞÔ/// </summary>
+        /// <summary>        /// éœ€è¦æ³¨æ„ï¼Œäº¤äº’IDä¸€èˆ¬ä¸æ˜¯ç”¨äºç‰¹åˆ«æŒ‡å®šï¼Œè€Œæ˜¯åœ¨ä¸€äº›ç‰¹æ®Šæƒ…å†µä¸‹è¿›è¡Œä¸´æ—¶èµ‹å€¼ç”¨çš„
+        /// ä¹Ÿå°±æ˜¯è¯´åˆå§‹åŒ–ä¸éœ€è¦èµ‹å€¼è¯¥å±æ€§/// </summary>
         public int interactionID = 0;
-        /// <summary>        /// ³õÊ¼»¯ÀàÃû³Æ£¬Ë³±ã×÷Îª½»»¥µÄÌáÊ¾ĞÅÏ¢        /// </summary>
+        /// <summary>        /// åˆå§‹åŒ–ç±»åç§°ï¼Œé¡ºä¾¿ä½œä¸ºäº¤äº’çš„æç¤ºä¿¡æ¯        /// </summary>
         public string interactionName;
+        GameObject origin;
+        UI.InteracteUI interacteUI;
+
+        public float upOffset = 1.3f;
 
         /// <summary>
-        /// ³õÊ¼»¯InteractionType»¹ÓĞinteractionName
+        /// åˆå§‹åŒ–InteractionTypeè¿˜æœ‰interactionName
         /// </summary>
-        protected abstract void OnEnable();
+        protected virtual void OnEnable()
+        {
+            if(origin == null)
+                origin = Resources.Load<GameObject>("UI/InteracteRemain");
 
-        /// <summary>        /// ¸Ã½»»¥ĞĞÎªĞèÒª¸ÉµÄÊÂÇé        /// </summary>
+            interacteUI = (UI.InteracteUI)Common.SceneObjectPool.
+                Instance.GetObject("InteracteRemain", origin,
+                transform.position + Vector3.up * upOffset, Quaternion.identity);
+        }
+
+        protected virtual void OnDisable()
+        {
+            interacteUI.CloseObject();
+        }
+
+        /// <summary>        /// è¯¥äº¤äº’è¡Œä¸ºéœ€è¦å¹²çš„äº‹æƒ…        /// </summary>
         public abstract void InteractionBehavior();
 
 

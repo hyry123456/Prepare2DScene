@@ -63,7 +63,7 @@ namespace Interaction
 
         protected override void OnEnable()
         {
-
+            base.OnEnable();
         }
     }
 }

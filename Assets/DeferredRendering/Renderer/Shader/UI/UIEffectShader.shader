@@ -3,8 +3,9 @@ Shader "Defferer/UIEffectShader"
 {
     Properties
     {
-        _MainTex ("Texture", 2D) = "white" {}
-        _CullOff ("Cull Off Value", Range(0, 1)) = 0.5
+        _MainTex ("Sprite Texture", 2D) = "white" {}
+        [Toggle(_CLIPPING)] _Clipping ("Alpha Clipping", Float) = 0
+        _Cutoff ("Cut Off Value", Range(0, 1)) = 0.2
     }
     SubShader
     {
@@ -13,44 +14,53 @@ Shader "Defferer/UIEffectShader"
             Blend SrcAlpha OneMinusSrcAlpha
             ZWrite Off
             Cull Off
-            HLSLINCLUDE
+            HLSLPROGRAM
+
+            #pragma target 4.6
+
             #pragma vertex vert
             #pragma fragment frag
 
-            #pragma shader_feature _CLIPPING
-
+            
             #include "../../ShaderLibrary/Common.hlsl"
+            #include "../../ShaderLibrary/Fragment.hlsl"
 
             TEXTURE2D(_MainTex);
             SAMPLER(sampler_MainTex);
 
-            float _CullOff;
+            float _Cutoff;
+            float4 _Color;
 
-            struct Attributes {
-                float3 positionOS : POSITION;
-                float2 baseUV : TEXCOORD0;
-                float4 color : COLOR;
-            };
-
-            struct FragInput
+            struct Attributes2D
             {
-                float4 positionCS : SV_POSITION;
-                float2 uv : TEXCOORD0;
+                float4 vertex   : POSITION;
+                float2 texcoord : TEXCOORD0;
                 float4 color : COLOR;
             };
 
-            FragInput vert(Attributes input){
-                FragInput output;
-                output.positionCS = TransformObjectToHClip(input.positionOS);
-                output.uv = input.baseUV;
+            struct Varyings2D
+            {
+                float4 positionCS_SS   : SV_POSITION;
+                float2 baseUV  : TEXCOORD0;
+                float4 color : COLOR;
+            };
+                        
+            Varyings2D vert(Attributes2D input)
+            {
+                Varyings2D output;
+                output.positionCS_SS = TransformObjectToHClip(input.vertex.xyz);
+                output.baseUV = input.texcoord;
                 output.color = input.color;
+                return output;
             }
 
-            float4 frag(FragInput input) : SV_Target{
-                float4 color = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.uv.xy) * input.color;
-                clip(color.a - _CullOff);
+            float4 frag(Varyings2D i) : SV_Target
+            {
+                float4 color = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.baseUV.xy) * i.color;
+                clip(color.a - _Cutoff);
                 return color;
             }
+
 
             ENDHLSL
         }

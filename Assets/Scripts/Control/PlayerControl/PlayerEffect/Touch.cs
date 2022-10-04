@@ -25,6 +25,11 @@ namespace Control
 
         bool DecreaseLight()
         {
+            if (gameObject.activeSelf)
+            {
+                light.intensity = beginLightIntensity;
+                return true;
+            }
             if(light.intensity > 0)
             {
                 light.intensity -= Time.deltaTime * decreaseSpeed;

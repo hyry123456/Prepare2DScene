@@ -200,7 +200,7 @@ float3 GetBulkLight(float depth, float2 screenUV, float3 interpolatedRay){
     float bufferDepth = IsOrthographicCamera() ? OrthographicDepthBufferToLinear(depth) 
 		: LinearEyeDepth(depth, _ZBufferParams);
 
-    float3 worldPos = _WorldSpaceCameraPos + bufferDepth * interpolatedRay;
+    float3 worldPos = GetWorldPos(depth, screenUV);
     float3 startPos = _WorldSpaceCameraPos + _ProjectionParams.y * interpolatedRay;
 
     float3 direction = normalize(worldPos - startPos);
@@ -214,7 +214,6 @@ float3 GetBulkLight(float depth, float2 screenUV, float3 interpolatedRay){
 
     float3 color = 0;
     float seed = random((screenUV.y + screenUV.x) * _ScreenParams.x * _ScreenParams.y * _ScreenParams.z + 0.2312312);
-    // float seed = random((screenUV.y + screenUV.x) * 1000 + 0.2312312);
     float currentDepth = 0;
 
     // UNITY_UNROLL

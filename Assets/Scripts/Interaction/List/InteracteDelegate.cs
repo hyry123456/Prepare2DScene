@@ -16,7 +16,7 @@
 
         protected override void OnEnable()
         {
-
+            base.OnEnable();
         }
     }
 }
