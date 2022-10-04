@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Common
 {
     /// <summary>    
-    /// 场景的组件管理类，用来用名称找到物体
+    /// ��������������࣬�����������ҵ�����
     /// </summary>
     public class SceneObjectMap : MonoBehaviour
     {
@@ -38,13 +38,13 @@ namespace Common
             objectMap.Clear();
         }
         /// <summary>
-        /// 控制物体，这个物体是一开始就在场景中存在的物体，不过在一些时候需要提供交互
-        /// 这种时候就添加该标签
+        /// �������壬���������һ��ʼ���ڳ����д��ڵ����壬������һЩʱ����Ҫ�ṩ����
+        /// ����ʱ������Ӹñ�ǩ
         /// </summary>
         const string controlName = "ControlObject";
         /// <summary>
-        /// 临时物体，这个物体是一开始不显示在场景中的，但是在某些任务需要该物体时，
-        /// 可以进行快速获取，也就是说这个物体一开始是显示在场景中的，但是在开始时被关闭了
+        /// ��ʱ���壬���������һ��ʼ����ʾ�ڳ����еģ�������ĳЩ������Ҫ������ʱ��
+        /// ���Խ��п��ٻ�ȡ��Ҳ����˵�������һ��ʼ����ʾ�ڳ����еģ������ڿ�ʼʱ���ر���
         /// </summary>
         const string tempName = "TempObject";
         Dictionary<string, GameObject> objectMap;
@@ -62,7 +62,7 @@ namespace Common
             for (int i = 0; i < tempObjects.Length; i++)
             {
                 objectMap.Add(tempObjects[i].name, tempObjects[i]);
-                tempObjects[i].SetActive(false);        //临时物体一开始不进行显示
+                tempObjects[i].SetActive(false);        //��ʱ����һ��ʼ��������ʾ
             }
         }
 

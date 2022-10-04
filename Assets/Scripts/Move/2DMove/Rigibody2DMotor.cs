@@ -25,6 +25,7 @@ namespace Motor
         private int airJumps = 0;
         /// <summary>    /// 是否在地面上    /// </summary>
         private bool onGround = false;
+        public bool OnGround => onGround;
 
         /// <summary>  /// 最大地面的倾斜夹角，这个数组由外界调整，在运行时会转化为弧度  /// </summary>
         [Range(0, 90)]
@@ -74,15 +75,15 @@ namespace Motor
             }
             Rotate();
 
-            velocity = Vector2.ClampMagnitude(velocity, 40f);
+            velocity = Vector2.ClampMagnitude(velocity, 10f);
 
             body2D.velocity = velocity;
             ClearState();
         }
 
 
-        Vector2 targetPos;      //传送到的目标点
-        Vector2 direct;         //移动方向
+        Vector3 targetPos;      //传送到的目标点
+        Vector3 direct;         //移动方向
         float maxSpeed = -1;         //最大速度
 
         /// <summary>
@@ -92,7 +93,6 @@ namespace Motor
         /// <param name="speed">速度</param>
         public void TransferToPosition(Transform postion, float speed)
         {
-
             //不允许反复传送
             if (maxSpeed > 0)
             {
@@ -104,7 +104,7 @@ namespace Motor
             if (postion == null) return;
             direct = (postion.position - transform.position).normalized;
             Vector2 nowDir = body2D.velocity.normalized;
-            body2D.velocity = Mathf.Clamp01(Vector2.Dot(nowDir, direct)) * body2D.velocity;
+            body2D.velocity = Mathf.Clamp01(Vector3.Dot(nowDir, direct)) * body2D.velocity;
 
             HookRopeManage.Instance.LinkHookRope(postion.position, transform);
 
@@ -117,9 +117,9 @@ namespace Motor
         private bool CheckTransing()
         {
             if (maxSpeed < 0) return false;
-            Vector2 pos = transform.position;
-            Vector2 dir = (targetPos - pos).normalized;
-            if (Vector2.Dot(dir, direct) < 0f)
+
+            Vector2 dir = (targetPos - transform.position).normalized;
+            if (Vector3.Dot(dir, direct) < 0.3)
             {
                 maxSpeed = -1;
                 //body.useGravity = true;
@@ -317,6 +317,7 @@ namespace Motor
         {
             desiredVelocity = Vector2.right * horizontal;
             desiredVelocity = desiredVelocity * characterInfo.runSpeed;
+            
         }
 
         public override void DesireJump()

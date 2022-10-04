@@ -10,7 +10,6 @@ namespace Control
         float beginLightIntensity;
         protected override void OnDisable()
         {
-            if(light == null) return;
             beginLightIntensity = light.intensity;
             Common.SustainCoroutine.Instance.AddCoroutine(DecreaseLight);
         }
