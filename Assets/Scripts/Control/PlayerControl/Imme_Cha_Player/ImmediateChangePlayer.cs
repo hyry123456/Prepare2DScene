@@ -12,6 +12,7 @@ namespace Control {
         private Interaction.InteractionControl[] interactionControls;
         private PlayerSkillControl[] skillControls;
         public float dieY = -100;
+        public Animator player_anim;
 
         [SerializeField]
         string horizontalName = "Horizontal";
@@ -107,11 +108,21 @@ namespace Control {
             bool jump = MyInput.Instance.GetButtonDown(jumpName);
             bool esc = MyInput.Instance.GetButtonDown("ESC");
             bool interacte = MyInput.Instance.GetButtonDown(interacteName);
-
+            
+            
             motors[nowIndex]?.Move(horizontal);
-            if (jump)
-                motors[nowIndex]?.DesireJump();
+            if(horizontal != 0)
+            {
+                Debug.LogError("动画播放");
+                //player_anim.SetBool("Run", ture);
+            }
 
+            if (jump) { 
+                motors[nowIndex]?.DesireJump();
+                Debug.LogError("跳跃动画播放！");
+                //player_anim.SetBool("Jump", ture);
+
+            }
             if (esc)
                 UIExtentControl.Instance?.ShowOrClose();
 
