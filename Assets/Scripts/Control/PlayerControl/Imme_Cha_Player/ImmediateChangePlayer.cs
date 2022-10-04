@@ -13,6 +13,8 @@ namespace Control {
         private PlayerSkillControl[] skillControls;
         public float dieY = -100;
         public Animator player_anim;
+        public GameObject anmiGO;      //为骨骼动画准备的GO；
+        private Rigidbody2D[] Rbs;
 
         [SerializeField]
         string horizontalName = "Horizontal";
@@ -52,6 +54,7 @@ namespace Control {
                 motors[i] = canChangeObject[i]?.GetComponent<Motor.MoveBase>();
                 interactionControls[i] = canChangeObject[i]?.GetComponent<Interaction.InteractionControl>();
                 skillControls[i] = canChangeObject[i]?.GetComponent<PlayerSkillControl>();
+                Rbs[i] = canChangeObject[i]?.GetComponent<Rigidbody2D>();
             }
 
             isEnableInput = true;
@@ -111,7 +114,7 @@ namespace Control {
             
             
             motors[nowIndex]?.Move(horizontal);
-            if(horizontal != 0)
+            if(horizontal != 0 && !jump )
             {
                 Debug.LogError("动画播放");
                 //player_anim.SetBool("Run", ture);
@@ -122,6 +125,13 @@ namespace Control {
                 Debug.LogError("跳跃动画播放！");
                 //player_anim.SetBool("Jump", ture);
 
+            }
+            
+            if (Rbs[nowIndex].velocity.y < 0 || ((Motor.Rigibody2DMotor)motors[nowIndex]).OnGround == false )
+            {
+                //anim.SetBool("Jumping", false);
+                //anim.SetBool("Falling", true);
+                Debug.LogError("下落动画播放");
             }
             if (esc)
                 UIExtentControl.Instance?.ShowOrClose();
