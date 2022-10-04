@@ -30,7 +30,7 @@ struct Varyings2D
 	UNITY_VERTEX_INPUT_INSTANCE_ID
 };
 
-#define _2D_Normal float3(0, 0, -1)
+#define _2D_Normal float3(0, 0, 1)
 
 Varyings2D LitPassVertex (Attributes2D input) {
 	Varyings2D output = (Varyings2D)0;
@@ -44,7 +44,7 @@ Varyings2D LitPassVertex (Attributes2D input) {
 
 	#if defined(_NORMAL_MAP)
         float3 worldNormal = _2D_Normal;
-        float3 worldTangent = TransformObjectToWorldDirection(input.tangentOS.xyz);
+        float3 worldTangent = TransformObjectToWorldDir(input.tangentOS.xyz);
         float3 worldBinormal = cross(worldNormal, worldTangent) * input.tangentOS.w;
         //按列排序获得切线空间转世界空间的矩阵,顺便加一个世界坐标位置
         output.TtoW0 = float3(worldTangent.x, worldBinormal.x, worldNormal.x);

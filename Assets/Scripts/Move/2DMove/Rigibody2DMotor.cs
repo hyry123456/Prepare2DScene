@@ -74,15 +74,15 @@ namespace Motor
             }
             Rotate();
 
-            velocity = Vector2.ClampMagnitude(velocity, 10f);
+            velocity = Vector2.ClampMagnitude(velocity, 40f);
 
             body2D.velocity = velocity;
             ClearState();
         }
 
 
-        Vector3 targetPos;      //传送到的目标点
-        Vector3 direct;         //移动方向
+        Vector2 targetPos;      //传送到的目标点
+        Vector2 direct;         //移动方向
         float maxSpeed = -1;         //最大速度
 
         /// <summary>
@@ -92,6 +92,7 @@ namespace Motor
         /// <param name="speed">速度</param>
         public void TransferToPosition(Transform postion, float speed)
         {
+
             //不允许反复传送
             if (maxSpeed > 0)
             {
@@ -103,7 +104,7 @@ namespace Motor
             if (postion == null) return;
             direct = (postion.position - transform.position).normalized;
             Vector2 nowDir = body2D.velocity.normalized;
-            body2D.velocity = Mathf.Clamp01(Vector3.Dot(nowDir, direct)) * body2D.velocity;
+            body2D.velocity = Mathf.Clamp01(Vector2.Dot(nowDir, direct)) * body2D.velocity;
 
             HookRopeManage.Instance.LinkHookRope(postion.position, transform);
 
@@ -116,9 +117,9 @@ namespace Motor
         private bool CheckTransing()
         {
             if (maxSpeed < 0) return false;
-
-            Vector2 dir = (targetPos - transform.position).normalized;
-            if (Vector3.Dot(dir, direct) < 0.3)
+            Vector2 pos = transform.position;
+            Vector2 dir = (targetPos - pos).normalized;
+            if (Vector2.Dot(dir, direct) < 0f)
             {
                 maxSpeed = -1;
                 //body.useGravity = true;

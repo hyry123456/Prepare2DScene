@@ -4,6 +4,7 @@ Shader "Defferer/UIEffectShader"
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
+        _CullOff ("Cull Off Value", Range(0, 1)) = 0.5
     }
     SubShader
     {
@@ -16,10 +17,14 @@ Shader "Defferer/UIEffectShader"
             #pragma vertex vert
             #pragma fragment frag
 
+            #pragma shader_feature _CLIPPING
+
             #include "../../ShaderLibrary/Common.hlsl"
 
             TEXTURE2D(_MainTex);
             SAMPLER(sampler_MainTex);
+
+            float _CullOff;
 
             struct Attributes {
                 float3 positionOS : POSITION;
@@ -42,7 +47,9 @@ Shader "Defferer/UIEffectShader"
             }
 
             float4 frag(FragInput input) : SV_Target{
-                return SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.uv.xy) * input.color;
+                float4 color = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.uv.xy) * input.color;
+                clip(color.a - _CullOff);
+                return color;
             }
 
             ENDHLSL
