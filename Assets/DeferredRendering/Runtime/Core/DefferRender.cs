@@ -130,7 +130,7 @@ namespace DefferedRender
             Setup();
 
             DrawGBuffer();
-            DrawUnsupportedShaders();   //绘制不支持的纹理
+            //DrawUnsupportedShaders();   //绘制不支持的纹理
 
             DrawGizmosBeforeFX();       //在后处理前准备一下Gizmos需要的数据
 

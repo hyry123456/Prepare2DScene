@@ -64,7 +64,7 @@ Shader "Defferer/GBufferReady2D"
 
 			Blend SrcAlpha OneMinusSrcAlpha
 			ZWrite Off
-			
+			Cull Off
 
             HLSLPROGRAM
             #pragma vertex LitPassVertex
