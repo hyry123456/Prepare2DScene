@@ -12,7 +12,7 @@ namespace Control {
         private Interaction.InteractionControl[] interactionControls;
         private PlayerSkillControl[] skillControls;
         public float dieY = -100;
-        public Animator player_anim;
+        public Animator[] animates;
         public GameObject anmiGO;      //为骨骼动画准备的GO；
         private Rigidbody2D[] Rbs;
         public Collider2D coll;    //用以判断是否接触地面
@@ -51,12 +51,14 @@ namespace Control {
             interactionControls = new Interaction.InteractionControl[canChangeObject.Length];
             skillControls = new PlayerSkillControl[canChangeObject.Length];
             Rbs = new Rigidbody2D[canChangeObject.Length];
+            animates = new Animator[canChangeObject.Length];
             for (int i = 0; i < canChangeObject.Length; i++)
             {
                 motors[i] = canChangeObject[i]?.GetComponent<Motor.MoveBase>();
                 interactionControls[i] = canChangeObject[i]?.GetComponent<Interaction.InteractionControl>();
                 skillControls[i] = canChangeObject[i]?.GetComponent<PlayerSkillControl>();
                 Rbs[i] = canChangeObject[i]?.GetComponent<Rigidbody2D>();
+                animates[i] = canChangeObject[i]?.GetComponent<Animator>();
             }
 
             isEnableInput = true;
@@ -119,22 +121,22 @@ namespace Control {
             if(horizontal != 0 && !jump )
             {
                 //Debug.LogError("移动动画播放");
-                player_anim.SetBool("Run", true);
+                animates[nowIndex].SetBool("Run", true);
             }
             if(horizontal == 0)
             {
-                player_anim.SetBool("Run", false);
+                animates[nowIndex].SetBool("Run", false);
             }
             if (jump) { 
                 motors[nowIndex]?.DesireJump();
                 Debug.LogError("跳跃动画播放！");
-                player_anim.SetBool("Jump", true);
+                animates[nowIndex].SetBool("Jump", true);
 
             }
-            if (Rbs[nowIndex].velocity.y < 0 && !((Motor.Rigibody2DMotor)motors[nowIndex]).OnGround)
+            if (Rbs[nowIndex].velocity.y < 0 && !motors[nowIndex].OnGround())
             {
-                player_anim.SetBool("Jump", false);
-                player_anim.SetBool("Down", true);
+                animates[nowIndex].SetBool("Jump", false);
+                animates[nowIndex].SetBool("Down", true);
                 Debug.LogError("下落动画播放");
             }
             //if(coll.tag == "Ground")
@@ -142,9 +144,11 @@ namespace Control {
             //    player_anim.SetBool("Down", false);
             //    Debug.LogError("玩家接触地面");
             //}
-            if (((Motor.Rigibody2DMotor)motors[nowIndex]).OnGround == true)
+            //Debug.Log(((Motor.Rigibody2DMotor)motors[nowIndex]).OnGround);
+            if (motors[nowIndex].OnGround())
             {
-                player_anim.SetBool("Down", false);
+                Debug.Log("Ground");
+                animates[nowIndex].SetBool("Down", false);
                 Debug.LogError("玩家接触地面");
             }
             if (esc)

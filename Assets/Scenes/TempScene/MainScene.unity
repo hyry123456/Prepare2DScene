@@ -194,6 +194,7 @@ MonoBehaviour:
   maxAirJumps: 2
   onGround: 0
   maxGroundAngle: 25
+  contactNormal: {x: 0, y: 0}
   climbData: {x: 1, y: 1, z: 1}
   climbMask:
     serializedVersion: 2
@@ -391,6 +392,7 @@ MonoBehaviour:
   maxAirJumps: 2
   onGround: 0
   maxGroundAngle: 25
+  contactNormal: {x: 0, y: 0}
   climbData: {x: 1, y: 1, z: 1}
   climbMask:
     serializedVersion: 2
@@ -761,6 +763,7 @@ MonoBehaviour:
   maxAirJumps: 2
   onGround: 0
   maxGroundAngle: 25
+  contactNormal: {x: 0, y: 0}
   climbData: {x: 1, y: 1, z: 1}
   climbMask:
     serializedVersion: 2
@@ -3471,7 +3474,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &653741437
 Transform:
   m_ObjectHideFlags: 0
@@ -4494,6 +4497,7 @@ GameObject:
   - component: {fileID: 1286452428}
   - component: {fileID: 1286452427}
   - component: {fileID: 1286452433}
+  - component: {fileID: 1286452434}
   m_Layer: 0
   m_Name: Square2
   m_TagString: Untagged
@@ -4584,6 +4588,7 @@ MonoBehaviour:
   maxAirJumps: 2
   onGround: 0
   maxGroundAngle: 25
+  contactNormal: {x: 0, y: 0}
   climbData: {x: 1, y: 1, z: 1}
   climbMask:
     serializedVersion: 2
@@ -4637,7 +4642,7 @@ Rigidbody2D:
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
-  m_SleepingMode: 1
+  m_SleepingMode: 0
   m_CollisionDetection: 0
   m_Constraints: 4
 --- !u!114 &1286452431
@@ -4690,6 +4695,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nowSkill: 0
+--- !u!95 &1286452434
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1286452424}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1ecd2f203dad3584598db4988a770e5f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1411369997
 GameObject:
   m_ObjectHideFlags: 0
@@ -4835,6 +4859,7 @@ GameObject:
   - component: {fileID: 1482335662}
   - component: {fileID: 1482335661}
   - component: {fileID: 1482335667}
+  - component: {fileID: 1482335668}
   m_Layer: 0
   m_Name: Square1
   m_TagString: Untagged
@@ -4939,6 +4964,7 @@ MonoBehaviour:
   maxAirJumps: 2
   onGround: 0
   maxGroundAngle: 25
+  contactNormal: {x: 0, y: 0}
   climbData: {x: 1, y: 1, z: 1}
   climbMask:
     serializedVersion: 2
@@ -4992,7 +5018,7 @@ Rigidbody2D:
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
-  m_SleepingMode: 1
+  m_SleepingMode: 0
   m_CollisionDetection: 0
   m_Constraints: 4
 --- !u!114 &1482335665
@@ -5045,6 +5071,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nowSkill: 0
+--- !u!95 &1482335668
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1482335657}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1ecd2f203dad3584598db4988a770e5f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1550071612
 GameObject:
   m_ObjectHideFlags: 0
@@ -5149,7 +5194,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.05660379, g: 0.05660379, b: 0.05660379, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -15097,6 +15142,7 @@ MonoBehaviour:
   dieY: -100
   player_anim: {fileID: 0}
   anmiGO: {fileID: 0}
+  coll: {fileID: 0}
   horizontalName: Horizontal
   jumpName: Jump
   interacteName: Interaction
@@ -15210,6 +15256,7 @@ GameObject:
   - component: {fileID: 2041892848}
   - component: {fileID: 2041892847}
   - component: {fileID: 2041892853}
+  - component: {fileID: 2041892854}
   m_Layer: 0
   m_Name: Square3
   m_TagString: Untagged
@@ -15300,6 +15347,7 @@ MonoBehaviour:
   maxAirJumps: 2
   onGround: 0
   maxGroundAngle: 25
+  contactNormal: {x: 0, y: 0}
   climbData: {x: 1, y: 1, z: 1}
   climbMask:
     serializedVersion: 2
@@ -15353,7 +15401,7 @@ Rigidbody2D:
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
-  m_SleepingMode: 1
+  m_SleepingMode: 0
   m_CollisionDetection: 0
   m_Constraints: 4
 --- !u!114 &2041892851
@@ -15406,6 +15454,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nowSkill: 0
+--- !u!95 &2041892854
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2041892844}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1ecd2f203dad3584598db4988a770e5f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &2098467534
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -28,5 +28,10 @@ namespace Motor
             horiVelocity.y = body2D.velocity.y; //±£Áô×¹ÂäËÙ¶È
             body2D.velocity = horiVelocity;
         }
+
+        public override bool OnGround()
+        {
+            return true;
+        }
     }
 }

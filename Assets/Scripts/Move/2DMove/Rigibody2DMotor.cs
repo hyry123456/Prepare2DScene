@@ -2,6 +2,7 @@
 
 namespace Motor
 {
+    [System.Serializable]
     /// <summary>  /// 参考3d版本实现的2D移动  /// </summary>
     public class Rigibody2DMotor : MoveBase
     {
@@ -26,7 +27,6 @@ namespace Motor
         [SerializeField]
         /// <summary>    /// 是否在地面上    /// </summary>
         private bool onGround = false;
-        public bool OnGround => onGround;
 
         /// <summary>  /// 最大地面的倾斜夹角，这个数组由外界调整，在运行时会转化为弧度  /// </summary>
         [Range(0, 90)]
@@ -62,6 +62,8 @@ namespace Motor
 
         private void FixedUpdate()
         {
+            ClearState();
+
             //更新数据，用来对这一个物理帧的数据进行更新之类的
             UpdateState();
 
@@ -79,7 +81,6 @@ namespace Motor
             velocity = Vector2.ClampMagnitude(velocity, 10f);
 
             body2D.velocity = velocity;
-            ClearState();
         }
 
 
@@ -207,6 +208,7 @@ namespace Motor
 
         void EvaluateCollision(Collision2D collision)
         {
+            onGround = false;
             float minDot = minGroundDot;
             for (int i = 0; i < collision.contactCount; i++)
             {
@@ -255,7 +257,7 @@ namespace Motor
         /// <summary>  /// 清除数据，把一些数据归为初始化  /// </summary>
         void ClearState()
         {
-            onGround = false;
+            //onGround = false;
             contactNormal = connectionVelocity = Vector2.zero;
             preConnectObj = connectObj;
             connectObj = null;
@@ -324,6 +326,11 @@ namespace Motor
         public override void DesireJump()
         {
             desiredJump = true;
+        }
+
+        public override bool OnGround()
+        {
+            return onGround;
         }
     }
 }
