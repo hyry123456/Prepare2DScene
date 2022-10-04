@@ -49,8 +49,6 @@ Shader "Defferer/UIEffectShader"
             float4 frag(FragInput input) : SV_Target{
                 float4 color = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.uv.xy) * input.color;
                 clip(color.a - _CullOff);
-                // clip(color.a - _CullOff);
-                // clip(-1);
                 return color;
             }
 
