@@ -109,10 +109,11 @@ float4 DrawGBufferColorFragment(Varyings i) : SV_Target
 {
     float bufferDepth = SAMPLE_DEPTH_TEXTURE_LOD(_CameraDepthTexture, sampler_point_clamp, i.screenUV, 0);
 	float depth01 = Linear01Depth(bufferDepth, _ZBufferParams);
-    bufferDepth = IsOrthographicCamera() ? OrthographicDepthBufferToLinear(bufferDepth)
-		: LinearEyeDepth(bufferDepth, _ZBufferParams);
+    // bufferDepth = IsOrthographicCamera() ? OrthographicDepthBufferToLinear(bufferDepth)
+		// : LinearEyeDepth(bufferDepth, _ZBufferParams);
     Surface surface;
-    surface.position = _WorldSpaceCameraPos + bufferDepth * i.interpolatedRay.xyz;
+    // surface.position = _WorldSpaceCameraPos + bufferDepth * i.interpolatedRay.xyz;
+	surface.position = GetWorldPos(bufferDepth, i.screenUV);
 
 	float4 baseNormal = SAMPLE_TEXTURE2D(_CameraNormalTexture, sampler_CameraNormalTexture, i.screenUV);
 
@@ -143,13 +144,13 @@ float4 DrawGBufferColorFragment(Varyings i) : SV_Target
     if(specular.w > 0.0){
 		float3 uv_Depth = float3(i.screenUV, bufferDepth);
         color = GetGBufferLight(surface, brdf, uv_Depth);
-		float3 reflect = ReflectLod(i.screenUV, 1.0 - surface.smoothness);
-		color.xyz += ReflectBRDF(surface.normal, surface.viewDirection, surface.fresnelStrength, brdf, reflect);
+		// float3 reflect = ReflectLod(i.screenUV, 1.0 - surface.smoothness);
+		// color.xyz += ReflectBRDF(surface.normal, surface.viewDirection, surface.fresnelStrength, brdf, reflect);
     }
     else{
         color = baseColor.rgb;
     }
-    color += bakeColor.rgb;
+    // color += bakeColor.rgb;
 
     return float4(color, 1);
 }

@@ -21,7 +21,7 @@ MonoBehaviour:
     maxMarchDistance: 500
     depthThickness: 1
   bulkLight:
-    useBulkLight: 1
+    useBulkLight: 0
     shrinkRadio: 100
     circleCount: 64
     scatterRadio: 0
@@ -37,7 +37,7 @@ MonoBehaviour:
     mode: 1
     scatter: 0.95
   toneMapping:
-    mode: 2
+    mode: 1
   colorAdjustments:
     postExposure: 0
     contrast: 0

@@ -1,5 +1,5 @@
-#ifndef DEFFER_GBUFFER_READY_PASS_2D
-#define DEFFER_GBUFFER_READY_PASS_2D
+#ifndef DEFFER_TRANSPARENT2D_PASS_INCLUDED
+#define DEFFER_TRANSPARENT2D_PASS_INCLUDED
 
 #include "../../ShaderLibrary/Surface.hlsl"
 #include "../../ShaderLibrary/Shadows.hlsl"
@@ -8,13 +8,13 @@
 #include "../../ShaderLibrary/GI.hlsl"
 #include "../../ShaderLibrary/Lighting.hlsl"
 
+
 struct Attributes2D
 {
     float4 vertex   : POSITION;
     float2 texcoord : TEXCOORD0;
 	float4 color : COLOR;
     float4 tangentOS : TANGENT;
-	GI_ATTRIBUTE_DATA
 	UNITY_VERTEX_INPUT_INSTANCE_ID
 };
 
@@ -58,15 +58,11 @@ Varyings2D LitPassVertex (Attributes2D input) {
 	return output;
 }
 
-void LitPassFragment (Varyings2D input,
-        out float4 _GBufferColorTex : SV_Target0,
-        out float4 _GBufferNormalTex : SV_Target1,
-        out float4 _GBufferSpecularTex : SV_Target2,
-        out float4 _GBufferBakeTex : SV_Target3
-    ) {
+
+float4 LitPassFragment (Varyings2D input) : SV_TARGET {
 	UNITY_SETUP_INSTANCE_ID(input);
 	InputConfig config = GetInputConfig(input.baseUV);
-	// ClipLOD(input.positionCS_SS.xy, unity_LODFade.x);
+
 	
 	#if defined(_MASK_MAP)
 		config.useMask = true;
@@ -76,16 +72,15 @@ void LitPassFragment (Varyings2D input,
 		config.useDetail = true;
 	#endif
 	
-	//纹理颜色
 	float4 base = GetBase(config) * input.color;
-	float3 positionWS = input.positionWS;
-
 	#if defined(_CLIPPING)
 		clip(base.a - GetCutoff(config));
 	#endif
 	
+	Surface surface = (Surface)0;
+	surface.position = input.positionWS;
+
 	float3 normal = _2D_Normal;    //默认向前
-	// float3 perNormal = input.normalWS;
 	#if defined(_NORMAL_MAP)
         float3 bump = GetNormalMap(config); //获取法线
         normal = normalize(float3(dot(input.TtoW0, bump), dot(input.TtoW1, bump), dot(input.TtoW2, bump)));
@@ -93,20 +88,28 @@ void LitPassFragment (Varyings2D input,
 		normal = _2D_Normal;
 	#endif
 
-	float4 specularData = float4(GetMetallic(config), GetSmoothness(config), GetFresnel(config), 1);		//w赋值为1表示开启PBR
+    surface.normal = normal;
+    surface.interpolatedNormal = _2D_Normal;
 
-	//烘焙灯光，只处理了烘焙贴图，没有处理阴影烘焙，需要注意
-	// float3 bakeColor = GetBakeDate(GI_FRAGMENT_DATA(input), positionWS, perNormal);
-	float oneMinusReflectivity = OneMinusReflectivity(specularData.r);
-	float3 diffuse = base.rgb * oneMinusReflectivity;
-	float3 bakeColor = diffuse + GetEmission(config);				//通过金属度缩减烘焙光，再加上自发光，之后会在着色时直接加到最后的结果上
-	// float4 shiftColor = GetShiftColor(config);			//分别使用三张图的透明通道写入
+	surface.viewDirection = normalize(_WorldSpaceCameraPos - input.positionWS);
+	surface.depth = -TransformWorldToView(input.positionWS).z;
+	surface.color = base.rgb;
+	surface.alpha = base.a;
+	surface.metallic = GetMetallic(config);
+	surface.smoothness = GetSmoothness(config);
+	surface.fresnelStrength = GetFresnel(config);
+	surface.dither = InterleavedGradientNoise(input.positionCS_SS.xy, 0);
+	
+	#if defined(_PREMULTIPLY_ALPHA)
+		BRDF brdf = GetBRDF(surface, true);
+	#else
+		BRDF brdf = GetBRDF(surface);
+	#endif
 
-	_GBufferColorTex = float4(base.xyz, 1);
-	_GBufferNormalTex = float4(normal * 0.5 + 0.5, 1);
-	_GBufferSpecularTex = specularData;
-
-	_GBufferBakeTex = float4(bakeColor, 1);
+	float3 color = GetGBufferLight(surface, brdf, input.positionCS_SS);
+	color += GetEmission(config);
+	return float4(color, base.w);
 }
+
 
 #endif

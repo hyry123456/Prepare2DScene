@@ -8,9 +8,9 @@ namespace Control {
         /// <summary>   /// 可以用来改变成的物体都存储在这里，等待切换   /// </summary>
         public GameObject[] canChangeObject;
         private int nowIndex;      //当前显示中的物体
-        private Motor.MoveBase motor;
-        private Interaction.InteractionControl interactionControl;
-        private PlayerSkillControl skillControl;
+        private Motor.MoveBase[] motors;
+        private Interaction.InteractionControl[] interactionControls;
+        private PlayerSkillControl[] skillControls;
         public float dieY = -100;
 
         [SerializeField]
@@ -42,9 +42,17 @@ namespace Control {
 
         private void OnEnable()
         {
-            motor = GetComponent<Motor.MoveBase>();
-            interactionControl = GetComponent<Interaction.InteractionControl>();
-            skillControl = GetComponent<PlayerSkillControl>();
+            if (canChangeObject == null || canChangeObject.Length == 0) return;
+            motors = new Motor.MoveBase[canChangeObject.Length];
+            interactionControls = new Interaction.InteractionControl[canChangeObject.Length];
+            skillControls = new PlayerSkillControl[canChangeObject.Length];
+            for (int i = 0; i < canChangeObject.Length; i++)
+            {
+                motors[i] = canChangeObject[i]?.GetComponent<Motor.MoveBase>();
+                interactionControls[i] = canChangeObject[i]?.GetComponent<Interaction.InteractionControl>();
+                skillControls[i] = canChangeObject[i]?.GetComponent<PlayerSkillControl>();
+            }
+
             isEnableInput = true;
             instance = this;
             if (canChangeObject == null || canChangeObject.Length == 0) return;
@@ -63,7 +71,9 @@ namespace Control {
         {
             if (!isEnableInput) return;
             if (Input.GetMouseButtonDown(0))
-                skillControl?.ReleaseChooseSkill();
+            {
+                skillControls[nowIndex]?.ReleaseChooseSkill();
+            }
             if (canChangeObject == null || canChangeObject.Length == 0)
                 return;
 
@@ -77,8 +87,9 @@ namespace Control {
                     {
                         canChangeObject[nowIndex].SetActive(false);
                         canChangeObject[i].SetActive(true);
+                        canChangeObject[i].transform.position = canChangeObject[nowIndex].transform.position;
                         nowIndex = i;
-                        drawData.beginPos = transform.position;
+                        drawData.beginPos = canChangeObject[nowIndex].transform.position;
                         ParticleNoiseFactory.Instance.DrawShape(drawData);
                         return;
                     }
@@ -97,15 +108,15 @@ namespace Control {
             bool esc = MyInput.Instance.GetButtonDown("ESC");
             bool interacte = MyInput.Instance.GetButtonDown(interacteName);
 
-            motor.Move(horizontal);
+            motors[nowIndex]?.Move(horizontal);
             if (jump)
-                motor.DesireJump();
+                motors[nowIndex]?.DesireJump();
 
             if (esc)
                 UIExtentControl.Instance?.ShowOrClose();
 
-            if (interacte && interactionControl != null)
-                interactionControl.RunInteraction();
+            if (interacte && interactionControls != null)
+                interactionControls[nowIndex]?.RunInteraction();
 
             if (transform.position.y < dieY)
                 SceneChangeControl.Instance.ReloadActiveScene();
@@ -113,7 +124,7 @@ namespace Control {
 
         public override Vector3 GetPosition()
         {
-            return transform.position;
+            return canChangeObject[nowIndex].transform.position;
         }
     }
 }

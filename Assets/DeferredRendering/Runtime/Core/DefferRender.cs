@@ -316,16 +316,18 @@ namespace DefferedRender
 
             Draw(colorAttachmentId, cameraColorTexId, CameraRenderMode._CopyBilt);
 
-            buffer.SetRenderTarget(
-                colorAttachmentId, RenderBufferLoadAction.Load, RenderBufferStoreAction.Store,
-                gBufferDepthId, RenderBufferLoadAction.Load, RenderBufferStoreAction.Store);
+
 
             sortingSettings.criteria = SortingCriteria.CommonTransparent;
             drawingSettings.sortingSettings = sortingSettings;
             filteringSettings.renderQueueRange = RenderQueueRange.transparent;
             drawingSettings.SetShaderPassName(0, litShaderTagId);
 
-            ExecuteBuffer();
+            buffer.SetRenderTarget(
+                colorAttachmentId, RenderBufferLoadAction.Load, RenderBufferStoreAction.Store,
+                gBufferDepthId, RenderBufferLoadAction.Load, RenderBufferStoreAction.Store);
+
+            //ExecuteBuffer();
 
             context.DrawRenderers(
                 cullingResults, ref drawingSettings, ref filteringSettings
