@@ -49,6 +49,7 @@ namespace Control {
             motors = new Motor.MoveBase[canChangeObject.Length];
             interactionControls = new Interaction.InteractionControl[canChangeObject.Length];
             skillControls = new PlayerSkillControl[canChangeObject.Length];
+            Rbs = new Rigidbody2D[canChangeObject.Length];
             for (int i = 0; i < canChangeObject.Length; i++)
             {
                 motors[i] = canChangeObject[i]?.GetComponent<Motor.MoveBase>();
@@ -127,7 +128,7 @@ namespace Control {
 
             }
             
-            if (Rbs[nowIndex].velocity.y < 0 || ((Motor.Rigibody2DMotor)motors[nowIndex]).OnGround == false )
+            if (Rbs[nowIndex].velocity.y < 0 && !((Motor.Rigibody2DMotor)motors[nowIndex]).OnGround)
             {
                 //anim.SetBool("Jumping", false);
                 //anim.SetBool("Falling", true);

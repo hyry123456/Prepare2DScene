@@ -23,6 +23,7 @@ namespace Motor
         public int maxAirJumps = 2;
         /// <summary>   /// 在空中移动的加速度 /// </summary>
         private int airJumps = 0;
+        [SerializeField]
         /// <summary>    /// 是否在地面上    /// </summary>
         private bool onGround = false;
         public bool OnGround => onGround;

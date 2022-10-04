@@ -192,6 +192,7 @@ MonoBehaviour:
   airAcceleration: 5
   jumpHeight: 2
   maxAirJumps: 2
+  onGround: 0
   maxGroundAngle: 25
   climbData: {x: 1, y: 1, z: 1}
   climbMask:
@@ -388,6 +389,7 @@ MonoBehaviour:
   airAcceleration: 5
   jumpHeight: 2
   maxAirJumps: 2
+  onGround: 0
   maxGroundAngle: 25
   climbData: {x: 1, y: 1, z: 1}
   climbMask:
@@ -757,6 +759,7 @@ MonoBehaviour:
   airAcceleration: 5
   jumpHeight: 2
   maxAirJumps: 2
+  onGround: 0
   maxGroundAngle: 25
   climbData: {x: 1, y: 1, z: 1}
   climbMask:
@@ -1220,6 +1223,11 @@ GameObject:
   - component: {fileID: 594162175}
   - component: {fileID: 594162174}
   - component: {fileID: 594162173}
+  - component: {fileID: 594162176}
+  - component: {fileID: 594162177}
+  - component: {fileID: 594162178}
+  - component: {fileID: 594162179}
+  - component: {fileID: 594162180}
   m_Layer: 0
   m_Name: ground
   m_TagString: Untagged
@@ -1248,7 +1256,7 @@ TilemapCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 594162171}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -3317,6 +3325,136 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!61 &594162176
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 594162171}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -57.470566, y: 3.5198822}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 19.058872, y: 0.8739548}
+  m_EdgeRadius: 0
+--- !u!61 &594162177
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 594162171}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -42.508785, y: 1.4687347}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 7.1240463, y: 0.8358784}
+  m_EdgeRadius: 0
+--- !u!61 &594162178
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 594162171}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -32.98321, y: 0.37811518}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 6.018425, y: 1.0032511}
+  m_EdgeRadius: 0
+--- !u!61 &594162179
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 594162171}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -25.001629, y: -0.42578554}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 6.1332626, y: 1.2329359}
+  m_EdgeRadius: 0
+--- !u!61 &594162180
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 594162171}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -20.495182, y: -2.6229124}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 4.890877, y: 1.0725775}
+  m_EdgeRadius: 0
 --- !u!1 &653741436
 GameObject:
   m_ObjectHideFlags: 0
@@ -4444,6 +4582,7 @@ MonoBehaviour:
   airAcceleration: 15
   jumpHeight: 2
   maxAirJumps: 2
+  onGround: 0
   maxGroundAngle: 25
   climbData: {x: 1, y: 1, z: 1}
   climbMask:
@@ -4798,6 +4937,7 @@ MonoBehaviour:
   airAcceleration: 15
   jumpHeight: 2
   maxAirJumps: 2
+  onGround: 0
   maxGroundAngle: 25
   climbData: {x: 1, y: 1, z: 1}
   climbMask:
@@ -14956,6 +15096,7 @@ MonoBehaviour:
   - {fileID: 2041892844}
   dieY: -100
   player_anim: {fileID: 0}
+  anmiGO: {fileID: 0}
   horizontalName: Horizontal
   jumpName: Jump
   interacteName: Interaction
@@ -14975,7 +15116,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!108 &2041286229
 Light:
   m_ObjectHideFlags: 0
@@ -15157,6 +15298,7 @@ MonoBehaviour:
   airAcceleration: 15
   jumpHeight: 2
   maxAirJumps: 2
+  onGround: 0
   maxGroundAngle: 25
   climbData: {x: 1, y: 1, z: 1}
   climbMask:
