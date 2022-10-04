@@ -98,7 +98,7 @@ float3 GetNormalMap(InputConfig c){
 float3 GetEmission (InputConfig c) {
 	float4 map = SAMPLE_TEXTURE2D(_EmissionMap, sampler_MainTex, c.baseUV);
 	float4 color = INPUT_PROP(_EmissionColor);
-	return map.rgb * color.rgb;
+	return map.rgb * color.rgb * map.a;
 }
 
 float GetMetallic (InputConfig c) {
