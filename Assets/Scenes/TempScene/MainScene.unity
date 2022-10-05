@@ -14956,7 +14956,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6422b0f3745dd46409f9842dd130b542, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thisPassTags: 
+  thisPassTags: Black
   showLists: []
   closeLists: []
 --- !u!95 &1982790712
@@ -15593,7 +15593,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6422b0f3745dd46409f9842dd130b542, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thisPassTags: 
+  thisPassTags: White
   showLists: []
   closeLists: []
 --- !u!95 &2091787160
