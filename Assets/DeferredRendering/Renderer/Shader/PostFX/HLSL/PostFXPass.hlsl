@@ -485,22 +485,4 @@ float4 RotateFragment(Varyings input) : SV_TARGET{
 }
 
 
-float4 WaveScreen(Varyings input) : SV_TARGET{
-	float2 uv = input.screenUV;
-	float2 offset = _WaveSize * sin(_Time.w + input.screenUV.y * _WaveLength);
-
-	uv += offset;
-	float4 color = SAMPLE_TEXTURE2D(_PostFXSource, sampler_linear_clamp, uv);
-
-	float y = random(sin(_Time.x * 0.009 + input.screenUV.y));
-	if(y > 0.9999){
-		float x = random(sin(_Time.x + input.screenUV.x * 10 + input.screenUV.y * 10));
-		if(x > 0.3)
-			color = 0.5;
-	}
-
-	return color;
-}
-
-
 #endif

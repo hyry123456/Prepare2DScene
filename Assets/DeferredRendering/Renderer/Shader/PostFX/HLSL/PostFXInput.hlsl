@@ -55,9 +55,6 @@ float _FogPosYFallOff;
 //旋转的程度值
 float _RotateRadio;
 
-float _WaveSize;
-float _WaveLength;
-
 float4 _Colors[_COUNT];  //颜色计算用的数据
 
 float4 GetSourceTexelSize () {

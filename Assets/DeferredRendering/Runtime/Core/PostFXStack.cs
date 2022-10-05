@@ -31,7 +31,6 @@ namespace DefferedRender
 			CaculateGray,
 			FXAA,
 			RotateTexture,
-			WaveTexture,
 		}
 
         const string bufferName = "PostFX";
@@ -156,11 +155,6 @@ namespace DefferedRender
 				RotateTexture(sourceId);
 			}
 
-            if (settings.WaveSetting.isWave)
-            {
-				WaveTexture(sourceId);
-            }
-
 			if (settings.BulkLighting.useBulkLight)
             {
 				DrawBulkLight(sourceId);
@@ -253,8 +247,6 @@ namespace DefferedRender
 			ExecuteBuffer();
 		}
 
-		/// <summary>		/// 选择图片		/// </summary>
-		/// <param name="source"></param>
 		private void RotateTexture(int source)
         {
 			RenderTextureFormat format = useHDR ?
@@ -267,6 +259,7 @@ namespace DefferedRender
 			buffer.ReleaseTemporaryRT(bulkLightTargetTexId);
 		}
 
+<<<<<<< HEAD
 		private void WaveTexture(int source)
         {
 			RenderTextureFormat format = useHDR ?
@@ -281,6 +274,8 @@ namespace DefferedRender
 
 		}
 
+=======
+>>>>>>> 813eef5f1d9a76b34bee107a18d2cf9903d6d93a
 		/// <summary>		/// 渲染体积光		/// </summary>
 		public void DrawBulkLight(int source)
         {

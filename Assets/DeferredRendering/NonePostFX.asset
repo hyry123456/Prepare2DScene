@@ -45,7 +45,7 @@ MonoBehaviour:
     hueShift: 0
     saturation: 0
   whiteBalance:
-    temperature: 100
+    temperature: 0
     tint: 0
   splitToning:
     shadows: {r: 0.5, g: 0.5, b: 0.5, a: 1}
@@ -89,16 +89,3 @@ MonoBehaviour:
       m_Mode: 0
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
-  fXAA:
-    luminanceMode: 0
-    contrastThreshold: 0.0312
-    relativeThreshold: 0.063
-    subpixelBlending: 1
-    lowQuality: 0
-  rotateSetting:
-    rotateRadio: 0
-    isRotate: 0
-  waveSettings:
-    waveSize: 5
-    waveLength: 300
-    isWave: 0
