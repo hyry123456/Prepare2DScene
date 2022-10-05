@@ -30,9 +30,7 @@ public class UIExtentControl : MonoBehaviour
         instance = this;
         showStack = new Stack<GameObject>();
         control = GetComponent<UIControl>();
-    }
-    private void Start()
-    {
+
         smallDialogManage = GetComponentInChildren<SmallDialogManage>();
         bigDialogManage = GetComponentInChildren<BigDialogManage>();
         npcDialogManage = GetComponentInChildren<NPCDialogManage>();
@@ -69,6 +67,8 @@ public class UIExtentControl : MonoBehaviour
     /// <param name="strs">对话内容</param>
     public void ShowBigDialog(string strs, Common.INonReturnAndNonParam endBehavior)
     {
+        if (bigDialogManage == null)
+            Debug.LogError("大UI为空");
         bigDialogManage.ShowBigDialog(strs, endBehavior);
     }
 

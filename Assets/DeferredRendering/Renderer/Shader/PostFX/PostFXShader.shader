@@ -243,5 +243,14 @@ Shader "Unlit/PostFXShader"
             #pragma fragment RotateFragment
             ENDHLSL
 		}
+
+		Pass	//22
+		{
+			Name "Wave Texture"
+            HLSLPROGRAM
+            #pragma vertex BlitPassSimpleVertex
+            #pragma fragment WaveScreen
+            ENDHLSL
+		}
     }
 }

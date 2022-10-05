@@ -9,7 +9,8 @@ public class Temp : MonoBehaviour
     void Start()
     {
 
-        GameObject obj = Common.SceneObjectMap.Instance.FindControlObject("TempInteracte");
-        Debug.Log(obj.name);
+
+        string str = "你好，萨达萨达萨达萨达萨达\nsakdjsaldjlaskjdlksajd\nsajldlsajdlsajdlsajd";
+        UIExtentControl.Instance.ShowBigDialog(str, null);
     }
 }

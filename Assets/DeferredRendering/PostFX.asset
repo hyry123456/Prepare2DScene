@@ -21,7 +21,7 @@ MonoBehaviour:
     maxMarchDistance: 500
     depthThickness: 1
   bulkLight:
-    useBulkLight: 1
+    useBulkLight: 0
     shrinkRadio: 100
     circleCount: 10
     scatterRadio: 0
@@ -48,7 +48,7 @@ MonoBehaviour:
     temperature: 0
     tint: 0
   splitToning:
-    shadows: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    shadows: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
     highlights: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     balance: 0
   fog:
@@ -98,3 +98,7 @@ MonoBehaviour:
   rotateSetting:
     rotateRadio: 0
     isRotate: 0
+  waveSettings:
+    waveSize: 0.0008
+    waveLength: 450
+    isWave: 1
