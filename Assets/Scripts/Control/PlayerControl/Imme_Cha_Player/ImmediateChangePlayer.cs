@@ -137,14 +137,8 @@ namespace Control {
             {
                 animates[nowIndex].SetBool("Jump", false);
                 animates[nowIndex].SetBool("Down", true);
-                Debug.LogError("下落动画播放");
+                //Debug.LogError("下落动画播放");
             }
-            //if(coll.tag == "Ground")
-            //{
-            //    player_anim.SetBool("Down", false);
-            //    Debug.LogError("玩家接触地面");
-            //}
-            //Debug.Log(((Motor.Rigibody2DMotor)motors[nowIndex]).OnGround);
             if (motors[nowIndex].OnGround())
             {
                 animates[nowIndex].SetBool("Down", false);
