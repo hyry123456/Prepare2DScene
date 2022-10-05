@@ -1,5 +1,4 @@
 using Control;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,9 +10,12 @@ public class PassThrough : PlayerEffectBase
 
     public List<SpriteRenderer> showLists;
     public List<SpriteRenderer> closeLists;
+    /// <summary>/// 最小的透明度 /// </summary>
+    public float minAlpha = 0.3f;
 
     bool Show()
     {
+        if (showLists == null) return true;
         Color closeCol = showLists[0].color;
         float alpha = closeCol.a;
         alpha += Time.deltaTime;
@@ -34,9 +36,11 @@ public class PassThrough : PlayerEffectBase
 
     bool Close()
     {
+        if (closeLists == null) return true;
         Color closeCol = closeLists[0].color;
         float alpha = closeCol.a;
         alpha -= Time.deltaTime;
+
 
         for (int i = 0; i < closeLists.Count; i++)
         {
@@ -45,21 +49,17 @@ public class PassThrough : PlayerEffectBase
             closeLists[i].color = temp;
         }
 
-        if (alpha <= 0.0f)
+        if (alpha <= minAlpha)
         {
-            for (int i = 0; i < closeLists.Count; i++)
-            {
-                closeLists[i].gameObject.SetActive(false);
-            }
             return true;
         }
         return false;
     }
 
-    public override void OnEnable()
+    public override void Begin()
     {
         List<GameObject> games;
-
+        Debug.Log("Begin");
         games = ObjectClassify.Instance.allObjects[thisPassTags];
         showLists = new List<SpriteRenderer>();
         for (int i = 0; i < games.Count; i++)
@@ -68,14 +68,16 @@ public class PassThrough : PlayerEffectBase
             Color color = showLists[i].color; color.a = 0;
             showLists[i].color = color;
             games[i].SetActive(true);
+            games[i].GetComponent<Collider2D>().isTrigger = false;
         }
 
         Common.SustainCoroutine.Instance.AddCoroutine(Show);
     }
 
-    public override void OnDisable()
+    public override void End()
     {
         List<GameObject> games;
+        Debug.Log("End");
 
         games = ObjectClassify.Instance.allObjects[thisPassTags];
         closeLists = new List<SpriteRenderer>();
@@ -83,6 +85,8 @@ public class PassThrough : PlayerEffectBase
         {
             closeLists.Add(games[i].GetComponent<SpriteRenderer>());
             Color color = closeLists[i].color; color.a = 1;
+            games[i].GetComponent<Collider2D>().isTrigger = true;
+
             closeLists[i].color = color;
         }
 

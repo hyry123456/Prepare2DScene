@@ -7,10 +7,7 @@ namespace Control
     /// </summary>
     public abstract class PlayerEffectBase : MonoBehaviour
     {
-        /// <summary>    /// 角色启动时要实现的效果     /// </summary>
-        public abstract void OnEnable();
-
-        /// <summary>    /// 当角色关闭时执行的方法    /// </summary>
-        public abstract void OnDisable();
+        public abstract void Begin();
+        public abstract void End();
     }
 }

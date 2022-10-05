@@ -11,6 +11,7 @@ namespace Control {
         private Motor.MoveBase[] motors;
         private Interaction.InteractionControl[] interactionControls;
         private PlayerSkillControl[] skillControls;
+        private PlayerEffectBase[] effectControls;
         public float dieY = -100;
         public Animator[] animates;
         public GameObject anmiGO;      //为骨骼动画准备的GO；
@@ -28,7 +29,7 @@ namespace Control {
             beginSpeed = Vector3.up,
             speedMode = SpeedMode.PositionOutside,
             useGravity = false,
-            followSpeed = true,
+            followSpeed = false,
             radian = 6.28f,
             radius = 1f,
             lifeTime = 3,
@@ -37,10 +38,10 @@ namespace Control {
             octave = 8,
             intensity = 5,
             sizeRange = new Vector2(1f, 2f),
-            colorIndex = (int)ColorIndexMode.HighlightToAlpha,
-            sizeIndex = (int)SizeCurveMode.SmallToBig_Epirelief,
-            textureIndex = 0,
-            groupCount = 30,
+            colorIndex = (int)ColorIndexMode.ToAlpha,
+            sizeIndex = (int)SizeCurveMode.SmallToBig_Subken,
+            textureIndex = 1,
+            groupCount = 5,
         };
 
         private void OnEnable()
@@ -51,6 +52,7 @@ namespace Control {
             skillControls = new PlayerSkillControl[canChangeObject.Length];
             Rbs = new Rigidbody2D[canChangeObject.Length];
             animates = new Animator[canChangeObject.Length];
+            effectControls = new PlayerEffectBase[canChangeObject.Length];
             for (int i = 0; i < canChangeObject.Length; i++)
             {
                 motors[i] = canChangeObject[i]?.GetComponent<Motor.MoveBase>();
@@ -58,6 +60,7 @@ namespace Control {
                 skillControls[i] = canChangeObject[i]?.GetComponent<PlayerSkillControl>();
                 Rbs[i] = canChangeObject[i]?.GetComponent<Rigidbody2D>();
                 animates[i] = canChangeObject[i]?.GetComponent<Animator>();
+                effectControls[i] = canChangeObject[i]?.GetComponent<PlayerEffectBase>();
             }
 
             isEnableInput = true;
@@ -65,10 +68,12 @@ namespace Control {
             if (canChangeObject == null || canChangeObject.Length == 0) return;
             //显示第一个角色，关闭其他角色
             canChangeObject[0].SetActive(true);
+            effectControls[0].Begin();
             nowIndex = 0;
             for (int i = 1; i < canChangeObject.Length; i++)
             {
                 canChangeObject[i].SetActive(false);
+                effectControls[i].End();
             }
         }
 
@@ -93,7 +98,9 @@ namespace Control {
                     else
                     {
                         canChangeObject[nowIndex].SetActive(false);
+                        effectControls[nowIndex].End();
                         canChangeObject[i].SetActive(true);
+                        effectControls[i].Begin();
                         canChangeObject[i].transform.position = canChangeObject[nowIndex].transform.position;
                         nowIndex = i;
                         drawData.beginPos = canChangeObject[nowIndex].transform.position;

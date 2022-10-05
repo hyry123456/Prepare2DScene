@@ -279,13 +279,6 @@ namespace DefferedRender
 			Draw(bulkLightTargetTexId, source, Pass.Copy);      //拷贝回主纹理
 			buffer.ReleaseTemporaryRT(bulkLightTargetTexId);
 
-			//buffer.GetTemporaryRT(
-			//	bulkLightTempTexId, width, height, 0, FilterMode.Bilinear, format
-			//);
-
-			//Draw(source, bulkLightTempTexId, Pass.BlurHorizontal);
-			//Draw(bulkLightTempTexId, source, Pass.BlurVertical);
-			//buffer.ReleaseTemporaryRT(bulkLightTempTexId);
 		}
 
 		/// <summary>		/// 渲染体积光		/// </summary>

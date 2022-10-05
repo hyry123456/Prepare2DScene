@@ -10,7 +10,5 @@ public class Temp : MonoBehaviour
     {
 
 
-        string str = "你好，萨达萨达萨达萨达萨达\nsakdjsaldjlaskjdlksajd\nsajldlsajdlsajdlsajd";
-        UIExtentControl.Instance.ShowBigDialog(str, null);
     }
 }
