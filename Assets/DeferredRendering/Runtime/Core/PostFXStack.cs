@@ -31,7 +31,6 @@ namespace DefferedRender
 			CaculateGray,
 			FXAA,
 			RotateTexture,
-			WaveTexture,
 		}
 
         const string bufferName = "PostFX";
@@ -156,11 +155,6 @@ namespace DefferedRender
 				RotateTexture(sourceId);
 			}
 
-            if (settings.WaveSetting.isWave)
-            {
-				WaveTexture(sourceId);
-            }
-
 			if (settings.BulkLighting.useBulkLight)
             {
 				DrawBulkLight(sourceId);
@@ -253,8 +247,6 @@ namespace DefferedRender
 			ExecuteBuffer();
 		}
 
-		/// <summary>		/// 选择图片		/// </summary>
-		/// <param name="source"></param>
 		private void RotateTexture(int source)
         {
 			RenderTextureFormat format = useHDR ?
@@ -265,27 +257,6 @@ namespace DefferedRender
 			Draw(source, bulkLightTargetTexId, Pass.RotateTexture);      //旋转图片
 			Draw(bulkLightTargetTexId, source, Pass.Copy);      //拷贝回主纹理
 			buffer.ReleaseTemporaryRT(bulkLightTargetTexId);
-		}
-
-		private void WaveTexture(int source)
-        {
-			RenderTextureFormat format = useHDR ?
-				RenderTextureFormat.DefaultHDR : RenderTextureFormat.Default;
-			int width = camera.pixelWidth, height = camera.pixelHeight;
-			buffer.GetTemporaryRT(bulkLightTargetTexId, width, height, 0, FilterMode.Bilinear, format);
-            buffer.SetGlobalFloat("_WaveSize", settings.WaveSetting.waveSize);
-            buffer.SetGlobalFloat("_WaveLength", settings.WaveSetting.waveLength);
-            Draw(source, bulkLightTargetTexId, Pass.WaveTexture);      //旋转图片
-			Draw(bulkLightTargetTexId, source, Pass.Copy);      //拷贝回主纹理
-			buffer.ReleaseTemporaryRT(bulkLightTargetTexId);
-
-			//buffer.GetTemporaryRT(
-			//	bulkLightTempTexId, width, height, 0, FilterMode.Bilinear, format
-			//);
-
-			//Draw(source, bulkLightTempTexId, Pass.BlurHorizontal);
-			//Draw(bulkLightTempTexId, source, Pass.BlurVertical);
-			//buffer.ReleaseTemporaryRT(bulkLightTempTexId);
 		}
 
 		/// <summary>		/// 渲染体积光		/// </summary>

@@ -4719,7 +4719,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc37344d7a1a48b44928e526cee12272, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groundAcceleration: 300
+  groundAcceleration: 30
   airAcceleration: 15
   jumpHeight: 2
   maxAirJumps: 2
@@ -4990,7 +4990,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1550071613}
-  - component: {fileID: 1550071614}
   m_Layer: 0
   m_Name: Hope
   m_TagString: Untagged
@@ -5014,19 +5013,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1550071614
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1550071612}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02ab392a9e65da94dae741b11b6d0493, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  origin: {fileID: 0}
 --- !u!1 &1566621075
 GameObject:
   m_ObjectHideFlags: 0

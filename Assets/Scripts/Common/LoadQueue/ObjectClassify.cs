@@ -47,6 +47,6 @@ public class ObjectClassify : MonoBehaviour
     private void OnDestroy()
     {
         instance = null;
-        allObjects?.Clear();
+        allObjects.Clear();
     }
 }

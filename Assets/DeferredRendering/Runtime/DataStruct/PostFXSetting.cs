@@ -309,31 +309,6 @@ namespace DefferedRender
 		}
 
 
-
-		/// <summary>		/// 抗锯齿设置		/// </summary>
-		[Serializable]
-		public struct WaveTexture
-		{
-            [Range(0.0001f, 0.1f)]
-			/// <summary>/// 波动大小/// </summary>
-			public float waveSize;
-            [Range(100f, 500f)]
-			/// <summary>/// 波动距离/// </summary>
-			public float waveLength;
-
-			public bool isWave;
-		}
-		[SerializeField]
-		WaveTexture waveSettings = new WaveTexture
-		{
-			waveSize = 0005f,
-			waveLength = 300,
-			isWave = false,
-		};
-		public WaveTexture WaveSetting => waveSettings;
-
-
-
 		Material material;
 
 
