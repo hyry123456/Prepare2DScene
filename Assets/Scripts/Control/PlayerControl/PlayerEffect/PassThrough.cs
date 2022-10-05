@@ -48,11 +48,11 @@ public class PassThrough : PlayerEffectBase
 
         if (alpha <= minAlpha)
         {
-            for (int i = 0; i < closeLists.Count; i++)
-            {
-                //closeLists[i].gameObject.SetActive(false);
-                closeLists[i].GetComponent<Collider2D>().isTrigger = true;
-            }
+            //for (int i = 0; i < closeLists.Count; i++)
+            //{
+            //    //closeLists[i].gameObject.SetActive(false);
+            //    closeLists[i].GetComponent<Collider2D>().isTrigger = true;
+            //}
             return true;
         }
         return false;
@@ -87,6 +87,7 @@ public class PassThrough : PlayerEffectBase
             closeLists.Add(games[i].GetComponent<SpriteRenderer>());
             Color color = closeLists[i].color; color.a = 1;
             closeLists[i].color = color;
+            closeLists[i].GetComponent<Collider2D>().isTrigger = true;
         }
 
         Common.SustainCoroutine.Instance.AddCoroutine(Close);
