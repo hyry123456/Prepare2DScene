@@ -147,9 +147,7 @@ namespace Control {
             //Debug.Log(((Motor.Rigibody2DMotor)motors[nowIndex]).OnGround);
             if (motors[nowIndex].OnGround())
             {
-                Debug.Log("Ground");
                 animates[nowIndex].SetBool("Down", false);
-                Debug.LogError("玩家接触地面");
             }
             if (esc)
                 UIExtentControl.Instance?.ShowOrClose();

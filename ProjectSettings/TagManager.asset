@@ -7,11 +7,8 @@ TagManager:
   - Enemy
   - ControlObject
   - TempObject
-  - Red
-  - Blue
-  - Yellow
-  - Green
-  - Ground
+  - White
+  - Black
   layers:
   - Default
   - TransparentFX

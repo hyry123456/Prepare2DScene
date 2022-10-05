@@ -22,13 +22,10 @@ public class ObjectClassify : MonoBehaviour
 
     private string[] allClassify = new string[]
     {
-        "Red", "Blue", "Yellow", "Green"
+        "White", "Black"
     };
-    public enum ClassifyMode
-    {
-        Red = 0, Blue = 1, Yellow = 2, Green = 3
-    }
-    public List<List<GameObject>> allObjects;
+    //public List<List<GameObject>> allObjects;
+    public Dictionary<string, List<GameObject>> allObjects;
 
     private void Awake()
     {
@@ -38,11 +35,11 @@ public class ObjectClassify : MonoBehaviour
             return;
         }
         instance = this;
-        allObjects = new List<List<GameObject>>();
+        allObjects = new Dictionary<string, List<GameObject>>();
         for(int i=0; i<allClassify.Length; i++)
         {
             List<GameObject> objects = new List<GameObject>( GameObject.FindGameObjectsWithTag(allClassify[i]));
-            allObjects.Add(objects);
+            allObjects.Add(allClassify[i], objects);
         }
 
     }

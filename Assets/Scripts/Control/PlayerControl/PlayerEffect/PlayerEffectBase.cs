@@ -1,16 +1,16 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 namespace Control
 {
     /// <summary>
-    /// ½ÇÉ«Ğ§¹û»ùÀà£¬ÓÃÀ´Ö´ĞĞËùÓĞµÄ½ÇÉ«Ğ§¹ûĞĞÎª
+    /// è§’è‰²æ•ˆæœåŸºç±»ï¼Œç”¨æ¥æ‰§è¡Œæ‰€æœ‰çš„è§’è‰²æ•ˆæœè¡Œä¸º
     /// </summary>
     public abstract class PlayerEffectBase : MonoBehaviour
     {
-        /// <summary>    /// ½ÇÉ«Æô¶¯Ê±ÒªÊµÏÖµÄĞ§¹û     /// </summary>
-        protected abstract void OnEnable();
+        /// <summary>    /// è§’è‰²å¯åŠ¨æ—¶è¦å®ç°çš„æ•ˆæœ     /// </summary>
+        public abstract void OnEnable();
 
-        /// <summary>    /// µ±½ÇÉ«¹Ø±ÕÊ±Ö´ĞĞµÄ·½·¨    /// </summary>
-        protected abstract void OnDisable();
+        /// <summary>    /// å½“è§’è‰²å…³é—­æ—¶æ‰§è¡Œçš„æ–¹æ³•    /// </summary>
+        public abstract void OnDisable();
     }
 }

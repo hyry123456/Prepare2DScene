@@ -62,8 +62,6 @@ namespace Motor
 
         private void FixedUpdate()
         {
-            ClearState();
-
             //更新数据，用来对这一个物理帧的数据进行更新之类的
             UpdateState();
 
@@ -78,9 +76,11 @@ namespace Motor
             }
             Rotate();
 
-            velocity = Vector2.ClampMagnitude(velocity, 10f);
+            velocity = Vector2.ClampMagnitude(velocity, 40f);
 
             body2D.velocity = velocity;
+
+            ClearState();
         }
 
 
