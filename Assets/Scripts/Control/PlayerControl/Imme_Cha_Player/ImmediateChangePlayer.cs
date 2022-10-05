@@ -15,7 +15,6 @@ namespace Control {
         public Animator[] animates;
         public GameObject anmiGO;      //为骨骼动画准备的GO；
         private Rigidbody2D[] Rbs;
-        public Collider2D coll;    //用以判断是否接触地面
 
         [SerializeField]
         string horizontalName = "Horizontal";
@@ -29,7 +28,7 @@ namespace Control {
             beginSpeed = Vector3.up,
             speedMode = SpeedMode.PositionOutside,
             useGravity = false,
-            followSpeed = false,
+            followSpeed = true,
             radian = 6.28f,
             radius = 1f,
             lifeTime = 3,
@@ -38,10 +37,10 @@ namespace Control {
             octave = 8,
             intensity = 5,
             sizeRange = new Vector2(1f, 2f),
-            colorIndex = (int)ColorIndexMode.ToAlpha,
-            sizeIndex = (int)SizeCurveMode.SmallToBig_Subken,
-            textureIndex = 1,
-            groupCount = 3,
+            colorIndex = (int)ColorIndexMode.HighlightToAlpha,
+            sizeIndex = (int)SizeCurveMode.SmallToBig_Epirelief,
+            textureIndex = 0,
+            groupCount = 30,
         };
 
         private void OnEnable()
@@ -129,7 +128,7 @@ namespace Control {
             }
             if (jump) { 
                 motors[nowIndex]?.DesireJump();
-                Debug.LogError("跳跃动画播放！");
+                //Debug.LogError("跳跃动画播放！");
                 animates[nowIndex].SetBool("Jump", true);
 
             }
