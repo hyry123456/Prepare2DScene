@@ -29,7 +29,7 @@ namespace Control {
             beginSpeed = Vector3.up,
             speedMode = SpeedMode.PositionOutside,
             useGravity = false,
-            followSpeed = true,
+            followSpeed = false,
             radian = 6.28f,
             radius = 1f,
             lifeTime = 3,
@@ -38,10 +38,10 @@ namespace Control {
             octave = 8,
             intensity = 5,
             sizeRange = new Vector2(1f, 2f),
-            colorIndex = (int)ColorIndexMode.HighlightToAlpha,
-            sizeIndex = (int)SizeCurveMode.SmallToBig_Epirelief,
-            textureIndex = 0,
-            groupCount = 30,
+            colorIndex = (int)ColorIndexMode.ToAlpha,
+            sizeIndex = (int)SizeCurveMode.SmallToBig_Subken,
+            textureIndex = 1,
+            groupCount = 3,
         };
 
         private void OnEnable()

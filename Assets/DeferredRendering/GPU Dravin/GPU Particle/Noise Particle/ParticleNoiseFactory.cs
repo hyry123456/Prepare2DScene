@@ -143,7 +143,7 @@ namespace DefferedRender
 
 
             //添加颜色
-            gradients = new Gradient[3];
+            gradients = new Gradient[4];
             //添加第一个
             gradients[0] = new Gradient();
             GradientColorKey[] colorKeys = new GradientColorKey[2];
@@ -178,6 +178,17 @@ namespace DefferedRender
             alphaKeys[1] = new GradientAlphaKey(); alphaKeys[1].alpha = 1; alphaKeys[1].time = 0.95f;
             alphaKeys[2] = new GradientAlphaKey(); alphaKeys[2].alpha = 0; alphaKeys[2].time = 1f;
             gradients[2].SetKeys(colorKeys, alphaKeys);     //颜色值不变
+
+            //添加第四个
+            gradients[3] = new Gradient();
+            alphaKeys = new GradientAlphaKey[3];
+            alphaKeys[0] = new GradientAlphaKey(); alphaKeys[0].alpha = 1; alphaKeys[0].time = 0;
+            alphaKeys[1] = new GradientAlphaKey(); alphaKeys[1].alpha = 1; alphaKeys[1].time = 0.95f;
+            alphaKeys[2] = new GradientAlphaKey(); alphaKeys[2].alpha = 0; alphaKeys[2].time = 1f;
+            colorKeys = new GradientColorKey[2];
+            colorKeys[0] = new GradientColorKey(); colorKeys[0].color = Color.white; colorKeys[0].time = 0;
+            colorKeys[1] = new GradientColorKey(); colorKeys[1].color = Color.white; colorKeys[1].time = 1;
+            gradients[3].SetKeys(colorKeys, alphaKeys);     //颜色值不变
         }
 
         /// <summary>        /// 初始化所有粒子        /// </summary>

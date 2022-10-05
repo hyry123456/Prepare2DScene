@@ -1,16 +1,17 @@
-using Control;
-using System.Collections;
+锘縰sing Control;
 using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary>  /// 穿越控制 /// </summary>
+/// <summary>  /// 绌胯秺鎺у埗 /// </summary>
 public class PassThrough : PlayerEffectBase
 {
-    /// <summary>  /// 这个物体需要进行显示的标签   /// </summary>
+    /// <summary>  /// 杩欎釜鐗╀綋闇�瑕佽繘琛屾樉绀虹殑鏍囩   /// </summary>
     public string thisPassTags;
 
     public List<SpriteRenderer> showLists;
     public List<SpriteRenderer> closeLists;
+    [Range(0f, 1f)]
+    public float minAlpha = 0.3f;
 
     bool Show()
     {
@@ -45,11 +46,12 @@ public class PassThrough : PlayerEffectBase
             closeLists[i].color = temp;
         }
 
-        if (alpha <= 0.0f)
+        if (alpha <= minAlpha)
         {
             for (int i = 0; i < closeLists.Count; i++)
             {
-                closeLists[i].gameObject.SetActive(false);
+                //closeLists[i].gameObject.SetActive(false);
+                closeLists[i].GetComponent<Collider2D>().isTrigger = true;
             }
             return true;
         }
@@ -68,6 +70,7 @@ public class PassThrough : PlayerEffectBase
             Color color = showLists[i].color; color.a = 0;
             showLists[i].color = color;
             games[i].SetActive(true);
+            games[i].GetComponent<Collider2D>().isTrigger = false;
         }
 
         Common.SustainCoroutine.Instance.AddCoroutine(Show);
