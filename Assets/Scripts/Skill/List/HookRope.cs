@@ -22,7 +22,7 @@ namespace Skill
         {
             if (motor == null)
                 motor = mana.GetComponent<Motor.Rigibody2DMotor>();
-            motor.TransferToPosition(HookRopeManage.Instance.Target, 1f);
+            motor.TransferToPosition(HookRopeManage.Instance.Target, 1);
         }
     }
 }

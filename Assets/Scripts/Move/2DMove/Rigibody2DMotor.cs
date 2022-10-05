@@ -84,8 +84,8 @@ namespace Motor
         }
 
 
-        Vector2 targetPos;      //传送到的目标点
-        Vector2 direct;         //移动方向
+        Vector3 targetPos;      //传送到的目标点
+        Vector3 direct;         //移动方向
         float maxSpeed = -1;         //最大速度
 
         /// <summary>
@@ -99,7 +99,7 @@ namespace Motor
             if (maxSpeed > 0)
             {
                 maxSpeed = -1;  //停止钩锁
-                //body2D.gravityScale = 1;
+                //body.useGravity = true;
                 HookRopeManage.Instance.CloseHookRope();
                 return;
             }
@@ -120,15 +120,15 @@ namespace Motor
         {
             if (maxSpeed < 0) return false;
 
-            Vector2 dir = (targetPos - (Vector2)transform.position).normalized;
-            if (Vector3.Dot(dir, direct) < 0)
+            Vector2 dir = (targetPos - transform.position).normalized;
+            if (Vector3.Dot(dir, direct) < 0.3)
             {
                 maxSpeed = -1;
-                //body2D.gravityScale = 1;
+                //body.useGravity = true;
                 HookRopeManage.Instance.CloseHookRope();
                 return false;
             }
-            //body2D.gravityScale = 0;
+
             velocity += dir * maxSpeed;
             return true;
         }
